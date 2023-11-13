@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.AdminloginFormController">
+   <children>
+      <TextField fx:id="txtId" layoutX="193.0" layoutY="124.0" prefHeight="32.0" prefWidth="207.0" promptText="User Id" />
+      <Label layoutX="218.0" layoutY="14.0" prefHeight="50.0" prefWidth="164.0" text="Login Form">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPassword" layoutX="193.0" layoutY="191.0" prefHeight="32.0" prefWidth="207.0" promptText="Password" />
+      <JFXButton fx:id="btnLogin" layoutX="244.0" layoutY="260.0" onAction="#btnLoginOnAction" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #E68567;" text="Get Started">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

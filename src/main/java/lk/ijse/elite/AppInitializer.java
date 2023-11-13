@@ -12,6 +12,8 @@ public class AppInitializer extends Application {
 
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/adminlogin_form.fxml"))));
+
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();
         stage.show();

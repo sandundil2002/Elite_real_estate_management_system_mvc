@@ -1,5 +1,6 @@
 package lk.ijse.elite;
 
+
 import lk.ijse.elite.AppInitializer;
 
 public class AppInitializerWrapper {
