@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.AdminloginFormController">
+<AnchorPane fx:id="admin" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.AdminloginFormController">
    <children>
       <TextField fx:id="txtId" layoutX="193.0" layoutY="124.0" prefHeight="32.0" prefWidth="207.0" promptText="User Id" />
       <Label layoutX="218.0" layoutY="14.0" prefHeight="50.0" prefWidth="164.0" text="Login Form">
@@ -16,7 +16,15 @@
          </font>
       </Label>
       <TextField fx:id="txtPassword" layoutX="193.0" layoutY="191.0" prefHeight="32.0" prefWidth="207.0" promptText="Password" />
-      <JFXButton fx:id="btnLogin" layoutX="244.0" layoutY="260.0" onAction="#btnLoginOnAction" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #E68567;" text="Get Started">
+      <JFXButton fx:id="btnLogin" layoutX="244.0" layoutY="260.0" onAction="#btnLoginOnAction" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #6DDE71;" text="Login">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnRegister" layoutX="244.0" layoutY="310.0" onAction="#btnRegisterOnAction" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #6D73DE;" text="Register">
          <font>
             <Font size="15.0" />
          </font>

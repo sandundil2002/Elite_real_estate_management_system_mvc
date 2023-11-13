@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="property" prefHeight="504.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.PropertymanageFormcCntroller">
+   <children>
+      <Label layoutX="175.0" layoutY="14.0" prefHeight="46.0" prefWidth="250.0" text="Property Manage">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblproperty" layoutX="37.0" layoutY="69.0" prefHeight="200.0" prefWidth="525.0">
+        <columns>
+          <TableColumn fx:id="colproid" prefWidth="84.800048828125" text="Property Id" />
+          <TableColumn fx:id="coltype" prefWidth="139.199951171875" text="Type" />
+            <TableColumn fx:id="coladdress" prefWidth="156.00006103515625" text="Address" />
+            <TableColumn fx:id="colprice" prefWidth="143.19997558593752" text="Price" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtid" layoutX="57.0" layoutY="299.0" prefHeight="26.0" prefWidth="184.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtprice" layoutX="357.0" layoutY="299.0" prefHeight="26.0" prefWidth="184.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txttype" layoutX="357.0" layoutY="369.0" prefHeight="26.0" prefWidth="184.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtaddress" layoutX="57.0" layoutY="369.0" prefHeight="26.0" prefWidth="184.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Text layoutX="58.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Id">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="358.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="58.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="358.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="66.0" layoutY="427.0" onAction="#btnAddOnAction" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #58EDA3;" text="Add">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton layoutX="194.0" layoutY="427.0" onAction="#btnUpdateOnAction" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #58EDA3;" text="Update">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton layoutX="318.0" layoutY="427.0" onAction="#btnSearchOnAction" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #58EDA3;" text="Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton layoutX="445.0" layoutY="427.0" onAction="#btnDeleteOnAction" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #58EDA3;" text="Delete">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton layoutX="11.0" layoutY="14.0" onAction="#btnbackOnAction" style="-fx-background-color: #2DE344;" text="Back">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>
