@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="338.0" prefWidth="600.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.MaintainmanageFormController">
+   <children>
+      <ImageView fitHeight="331.0" fitWidth="361.0" layoutX="110.0" layoutY="37.0" opacity="0.37" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asstets/back.png" />
+         </image>
+      </ImageView>
+      <JFXComboBox fx:id="cmbRentId" layoutX="330.0" layoutY="88.0" prefHeight="26.0" prefWidth="206.0" promptText="Rent Id">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <DatePicker fx:id="dtpDate" layoutX="18.0" layoutY="172.0" prefHeight="28.0" prefWidth="212.0" promptText="Date" />
+      <Label layoutX="172.0" layoutY="8.0" prefHeight="35.0" prefWidth="247.0" text="Maintain Of Renting" textFill="#ff760f">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtMaintainId" editable="false" layoutX="18.0" layoutY="92.0" prefHeight="28.0" prefWidth="212.0" promptText="Maintain Id" styleClass="lablebtn" />
+      <TextField fx:id="txtStatus" editable="false" layoutX="329.0" layoutY="171.0" prefHeight="28.0" prefWidth="212.0" promptText="Status" styleClass="lablebtn" text="Not Finished" />
+      <Button layoutX="231.0" layoutY="273.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Add">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

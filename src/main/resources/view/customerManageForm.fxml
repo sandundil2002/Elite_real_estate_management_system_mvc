@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="338.0" prefWidth="600.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.CustomerManageFormController">
+   <children>
+      <Label layoutX="162.0" layoutY="8.0" prefHeight="35.0" prefWidth="236.0" text="Managements Of Customers" textFill="#ff760f">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button layoutX="18.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Save">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="278.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnSearchOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="408.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Delete">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <ImageView fitHeight="331.0" fitWidth="361.0" layoutX="97.0" layoutY="45.0" opacity="0.37" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asstets/back.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtName" layoutX="25.0" layoutY="132.0" prefHeight="28.0" prefWidth="212.0" promptText="Name" styleClass="lablebtn" />
+      <TextField fx:id="txtCustomerid" layoutX="24.0" layoutY="72.0" prefHeight="28.0" prefWidth="212.0" promptText="Customer Id" styleClass="lablebtn" />
+      <TextField fx:id="txtMobile" layoutX="26.0" layoutY="191.0" prefHeight="28.0" prefWidth="212.0" promptText="Mobile" styleClass="lablebtn" />
+      <TextField fx:id="txtAddress" layoutX="304.0" layoutY="131.0" prefHeight="28.0" prefWidth="219.0" promptText="Address" styleClass="lablebtn" />
+      <TextField fx:id="txtEmail" layoutX="305.0" layoutY="192.0" prefHeight="28.0" prefWidth="219.0" promptText="Email" styleClass="lablebtn" />
+      <Button layoutX="148.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <JFXComboBox fx:id="cmbSheduleid" layoutX="306.0" layoutY="71.0" prefHeight="26.0" prefWidth="212.0" promptText="Schedule Id">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXComboBox>
+   </children>
+</AnchorPane>

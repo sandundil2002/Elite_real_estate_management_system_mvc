@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="338.0" prefWidth="600.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.EmployeeManageformController">
+   <children>
+      <TextField fx:id="txtName" layoutX="24.0" layoutY="132.0" prefHeight="28.0" prefWidth="212.0" promptText="Name" styleClass="lablebtn" />
+      <ImageView fitHeight="331.0" fitWidth="361.0" layoutX="110.0" layoutY="36.0" opacity="0.37" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asstets/back.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtEmpid" layoutX="24.0" layoutY="72.0" prefHeight="28.0" prefWidth="212.0" promptText="Emplooye Id" styleClass="lablebtn" />
+      <Label layoutX="122.0" layoutY="8.0" prefHeight="35.0" prefWidth="329.0" text="Managements Of Employees" textFill="#ff760f">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="20.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Save" />
+      <Button layoutX="147.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Update" />
+      <Button layoutX="410.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Delete" />
+      <TextField fx:id="txtAddress" layoutX="304.0" layoutY="132.0" prefHeight="28.0" prefWidth="212.0" promptText="Address" styleClass="lablebtn" />
+      <TextField fx:id="txtMobile" layoutX="24.0" layoutY="192.0" prefHeight="28.0" prefWidth="212.0" promptText="Mobile" styleClass="lablebtn" />
+      <Button layoutX="279.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnSearchOnAction" prefHeight="28.0" prefWidth="117.0" styleClass="btn" text="Search" />
+      <JFXComboBox fx:id="cmbAdminid" layoutX="306.0" layoutY="74.0" prefHeight="26.0" prefWidth="212.0" promptText="Admin Id" />
+      <JFXComboBox fx:id="cmbEmployeeposition" layoutX="306.0" layoutY="190.0" prefHeight="26.0" prefWidth="212.0" promptText="Employee Position" />
+      <TextField fx:id="txtAmount" editable="false" layoutX="164.0" layoutY="242.0" prefHeight="28.0" prefWidth="212.0" promptText="Amount" styleClass="lablebtn" />
+   </children>
+</AnchorPane>

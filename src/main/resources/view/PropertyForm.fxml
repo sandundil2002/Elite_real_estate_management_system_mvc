@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="property" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.PropertyFormController">
+   <children>
+      <Pane layoutY="-3.0" prefHeight="605.0" prefWidth="970.0" stylesheets="@../style/style.css">
+         <children>
+            <TableView fx:id="tblproperty" layoutX="15.0" layoutY="100.0" prefHeight="492.0" prefWidth="940.0">
+               <columns>
+                  <TableColumn fx:id="colPropertyid" prefWidth="102.39999103546143" text="Property Id" />
+                  <TableColumn fx:id="colAgentid" prefWidth="109.5999755859375" text="Agent Id" />
+                  <TableColumn fx:id="colType" prefWidth="133.6000518798828" text="Type" />
+                  <TableColumn fx:id="colAddress" prefWidth="133.5999755859375" text="Address" />
+                  <TableColumn fx:id="colPrice" prefWidth="135.20001220703125" text="Price" />
+                  <TableColumn fx:id="colStatus" prefWidth="120.800048828125" text="Status" />
+                  <TableColumn fx:id="colPerches" prefWidth="99.2000732421875" text="Perches" />
+                  <TableColumn fx:id="colRemove" prefWidth="111.199951171875" text="Remove" />
+               </columns>
+            </TableView>
+            <Label layoutX="7.0" layoutY="-17.0" prefHeight="102.0" prefWidth="301.0" text="Property Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="661.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnPropertymanageOnAction" prefHeight="42.0" prefWidth="163.0" styleClass="btn" text="Manage Property" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="663.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/aaa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="161.0" layoutY="-17.0" prefHeight="102.0" prefWidth="301.0" text="Elite" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="370.0" layoutY="36.0" mnemonicParsing="false" onAction="#btnBuypropertyOnAction" prefHeight="42.0" prefWidth="141.0" styleClass="btn" text="Sell Property" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="381.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/buy.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER_RIGHT" layoutX="893.0" layoutY="33.0" mnemonicParsing="false" onAction="#btnPrintOnAction" prefHeight="45.0" prefWidth="32.0" styleClass="btn" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asstets/icons8-print-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER_RIGHT" layoutX="837.0" layoutY="33.0" mnemonicParsing="false" onAction="#btnRefeshOnAction" prefHeight="45.0" prefWidth="45.0" styleClass="btn" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asstets/reload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER_RIGHT" layoutX="515.0" layoutY="35.0" mnemonicParsing="false" onAction="#btnRentpropertyOnAction" prefHeight="42.0" prefWidth="141.0" styleClass="btn" text="Rent Property" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="523.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/icons8-lease-50.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

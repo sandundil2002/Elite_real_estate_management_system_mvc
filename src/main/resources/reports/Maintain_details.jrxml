@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Maintenance_details" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0ffe6e6a-73da-4391-9089-1ce6cfd403c5">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<queryString language="SQL">
+		<![CDATA[select * from maintain;]]>
+	</queryString>
+	<field name="Maintain_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Maintain_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="Maintain_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="maintain"/>
+	</field>
+	<field name="Rent_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Rent_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rent_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="maintain"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="maintain"/>
+	</field>
+	<field name="Status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Status"/>
+		<property name="com.jaspersoft.studio.field.label" value="Status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="maintain"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="1" width="270" height="58" uuid="41f3b9ea-057e-4841-b7e6-73b1bb0eee99"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Maintenance Details]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="87" height="30" uuid="d7c4b538-34eb-40e8-bb80-6b34bfc3d3a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94dabd37-6fe2-45dc-864d-24394183a2ed"/>
+				</reportElement>
+				<text><![CDATA[Maintain_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="0" width="85" height="30" uuid="1a6507f5-1aff-45a5-a54f-bd3f4c602a9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c049c200-5b84-4586-838f-7f23792f8366"/>
+				</reportElement>
+				<text><![CDATA[Rent_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="0" width="100" height="30" uuid="1c7ba3dd-141d-475d-ac05-c446f3233ecd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe615d13-0bb3-45b4-933f-428a8843b690"/>
+				</reportElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="100" height="30" uuid="b358e406-072d-4931-bf74-449a83c6635b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54c889ca-ab5f-4f15-9269-ccabab14dbaf"/>
+				</reportElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="3" width="87" height="26" uuid="e3ea56cb-fd98-4fdb-9f26-0c76cba8a4e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94dabd37-6fe2-45dc-864d-24394183a2ed"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Maintain_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="3" width="85" height="26" uuid="afb32cb7-ea50-4ff2-a923-c702b61e85ee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c049c200-5b84-4586-838f-7f23792f8366"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Rent_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="4" width="100" height="25" uuid="04e364e0-3ccd-4ece-91f0-2ad3a7543533">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe615d13-0bb3-45b4-933f-428a8843b690"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="3" width="100" height="26" uuid="20876bfe-c6ca-4e0a-ade4-4f72154e341c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54c889ca-ab5f-4f15-9269-ccabab14dbaf"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

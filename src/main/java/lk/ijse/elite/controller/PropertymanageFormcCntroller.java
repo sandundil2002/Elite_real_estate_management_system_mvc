@@ -1,132 +1,100 @@
 package lk.ijse.elite.controller;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import lk.ijse.elite.db.DbConnection;
+import lk.ijse.elite.dto.AgentDto;
 import lk.ijse.elite.dto.PropertyDto;
-import lk.ijse.elite.dto.tm.PropertyTm;
+import lk.ijse.elite.model.AgentModel;
 import lk.ijse.elite.model.PropertyModel;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class PropertymanageFormcCntroller {
-    public TableView<PropertyTm> tblproperty;
-    public AnchorPane property;
-    public TableColumn<?, ?> coltype;
-    public TableColumn<?, ?> coladdress;
-    public TableColumn<?, ?> colprice;
-    public TableColumn<?, ?> colproid;
-    public TextField txtid;
-    public TextField txtprice;
-    public TextField txttype;
-    public TextField txtaddress;
+    public ComboBox txtAgentid;
+    public TextField txtStatus;
+    public ChoiceBox cmbType;
+    @FXML
+    private TextField txtAddress;
+    
+    @FXML
+    private TextField txtPerches;
 
-    public void initialize() {
-        setCellValueFactory();
-        loadAllCustomers();
-    }
+    @FXML
+    private TextField txtPrice;
 
-    private void setCellValueFactory() {
-        colproid.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
-        coltype.setCellValueFactory(new PropertyValueFactory<>("type"));
-        coladdress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colprice.setCellValueFactory(new PropertyValueFactory<>("price"));
-    }
-    private void loadAllCustomers() {
-        var model = new PropertyModel();
+    @FXML
+    private TextField txtPropertyId;
 
-        ObservableList<PropertyTm> obList = FXCollections.observableArrayList();
 
-        try {
-            List<PropertyDto> dtoList = model.loadAllProperty();
+    public void initialize() throws SQLException {
+        autoGenerateId();
+        loadAllAdmin();
 
-            for(PropertyDto dto : dtoList) {
-                obList.add(new PropertyTm(dto.getPropertyId(), dto.getType(), dto.getAddress(),dto.getPrice())
-                );
+        txtAgentid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            try {
+                AgentDto agentDto = AgentModel.searchAgent(t1.toString());
+                txtAgentid.setValue(agentDto.getAgent_id());
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            tblproperty.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        });
 
-    public void btnAddOnAction(ActionEvent actionEvent){
-        String id = txtid.getText();
-        String price = txtprice.getText();
-        String address = txtaddress.getText();
-        String type = txttype.getText();
-
-        if (id.isEmpty() || price.isEmpty() || address.isEmpty() || type.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please fill out all fields").show();
-            return;
-        }
-
-        var dto = new PropertyDto(id,price,address,type);
-        var model = new PropertyModel();
-
-        try {
-            boolean isSaved = model.saveProperty(dto);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Property Added Succesfull").show();
-                initialize();
-                clearFields();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        cmbType.getItems().addAll("Land","House","Building","Apartment","Office","Warehouse","Shop","Cabin","Farm House");
+        cmbType.setValue("Land");
     }
 
     private void clearFields() {
-        txtid.setText("");
-        txtprice.setText("");
-        txtaddress.setText("");
-        txttype.setText("");
+        txtPropertyId.setText("");
+        txtPrice.setText("");
+        txtAddress.setText("");
+        txtPerches.setText("");
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String id = txtid.getText();
-        String price = txtprice.getText();
-        String address = txtaddress.getText();
-        String type = txttype.getText();
+        String pid = txtPropertyId.getText();
+        String aid = txtAgentid.toString();
+        String price = txtPrice.getText();
+        String address = txtAddress.getText();
+        String type = String.valueOf(cmbType.getValue());
+        String perches = txtPerches.getText();
+        String status = txtStatus.getText();
 
-        if (id.isEmpty() || price.isEmpty() || address.isEmpty() || type.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please fill out all fields").show();
+        boolean isPropertyValidated = validateProperty();
+        if (!isPropertyValidated) {
             return;
         }
 
-        var dto = new PropertyDto(id,price,address,type);
+        var dto = new PropertyDto(pid, aid, price, address, type, perches, status);
         var model = new PropertyModel();
 
         try {
             boolean isUpdated = model.updateProperty(dto);
-            if(isUpdated) {
+            if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Property Update Succesfull!!!").show();
-                initialize();
                 clearFields();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
 
     public void btnSearchOnAction(ActionEvent actionEvent) {
-        String id = txtid.getText();
+        String pid = txtPropertyId.getText();
         var model = new PropertyModel();
         try {
-            PropertyDto dto = model.searchProperty(id);
-
-            if(dto != null) {
+            PropertyDto dto = model.searchProperty(pid);
+            if (dto != null) {
                 fillFields(dto);
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Property Not Found!!!").show();
@@ -137,41 +105,97 @@ public class PropertymanageFormcCntroller {
         }
     }
 
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
-        String id = txtid.getText();
+    private void fillFields(PropertyDto dto) {
+        txtPropertyId.setText(dto.getPropertyId());
+        txtPrice.setText(dto.getPrice());
+        txtAddress.setText(dto.getAddress());
+        cmbType.setValue(dto.getType());
+        txtPerches.setText(dto.getPerches());
+    }
+
+    public void btnSaveOnAction(ActionEvent actionEvent) {
+        String pId = txtPropertyId.getText();
+        String aId = String.valueOf(txtAgentid.getValue());
+        String price = txtPrice.getText();
+        String address = txtAddress.getText();
+        String type = String.valueOf(cmbType.getValue());
+        String perches = txtPerches.getText();
+        String status = txtStatus.getText();
+
+        boolean isPropertyValidated = validateProperty();
+        if (!isPropertyValidated) {
+            return;
+        }
+
+        var dto = new PropertyDto(pId, aId, price, address, type, perches, status);
         var model = new PropertyModel();
 
-        try{
-            var propertyModel = new PropertyModel();
-            PropertyDto dto = model.searchProperty(id);
-            if(dto != null) {
-                boolean isDeleted = propertyModel.deleteProperty(id);
-                if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Property Delete Succesfull!!!").show();
-                    initialize();
-                    clearFields();
-                }
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Property Not Found!!!").show();
+        try {
+            boolean isSaved = model.saveProperty(dto);
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Property Added Succesfull").show();
                 clearFields();
+                autoGenerateId();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    private void fillFields(PropertyDto dto) {
-        txtid.setText(dto.getPropertyId());
-        txtprice.setText(dto.getPrice());
-        txtaddress.setText(dto.getAddress());
-        txttype.setText(dto.getType());
+    private void loadAllAdmin(){
+        ObservableList<String> obList = FXCollections.observableArrayList();
+
+        try {
+            List<AgentDto> ageList = AgentModel.loadAllAgents();
+
+            for (AgentDto agentDto  : ageList) {
+                obList.add(agentDto.getAgent_id());
+            }
+            txtAgentid.setItems(obList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private boolean validateProperty() {
+        String priceText = txtPrice.getText();
+        boolean priceValidate = Pattern.compile("[$][0-9]{3,}").matcher(priceText).matches();
+        if (!priceValidate) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Price").show();
+            txtPrice.requestFocus();
+            return false;
+        }
+
+        String addressText = txtAddress.getText();
+        boolean addressValidate = Pattern.compile("[A-Z]{1}[a-z]{1,}").matcher(addressText).matches();
+        if (!addressValidate) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Address").show();
+            txtAddress.requestFocus();
+            return false;
+        }
+        return true;
     }
 
-    public void btnbackOnAction(ActionEvent actionEvent) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml"));
-        Stage stage = (Stage) property.getScene().getWindow();
-        stage.setScene(new Scene(anchorPane));
-        stage.setTitle("Dashboard Form");
-        stage.centerOnScreen();
+    private void autoGenerateId() throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "SELECT property_id FROM property ORDER BY property_id DESC LIMIT 1";
+        ResultSet resultSet = connection.createStatement().executeQuery(sql);
+        boolean isIdExists = resultSet.next();
+
+        if (isIdExists) {
+            String property_id = resultSet.getString(1);
+            String[] tempArr = property_id.split("P");
+            int id = Integer.parseInt(tempArr[1]);
+            id++;
+            if (id < 10) {
+                txtPropertyId.setText("P00" + id);
+            } else if (id < 100) {
+                txtPropertyId.setText("P0" + id);
+            } else {
+                txtPropertyId.setText("P" + id);
+            }
+        } else {
+            txtPropertyId.setText("P001");
+        }
     }
 }

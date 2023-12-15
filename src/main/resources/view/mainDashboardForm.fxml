@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.MainDashboardFormController">
+   <children>
+      <Pane prefHeight="605.0" prefWidth="970.0">
+         <children>
+            <TableView fx:id="tblTodayAppointment" layoutX="462.0" layoutY="216.0" prefHeight="383.0" prefWidth="496.0">
+              <columns>
+                <TableColumn fx:id="colSheduleid" prefWidth="119.19992065429688" text="Appointment ID" />
+                <TableColumn fx:id="colCusname" prefWidth="128.800048828125" text="Customer Name" />
+                  <TableColumn fx:id="colTime" prefWidth="118.4000244140625" text="Time" />
+                  <TableColumn fx:id="colMobile" prefWidth="130.4000244140625" text="Mobile" />
+              </columns>
+            </TableView>
+            <Pane layoutX="710.0" layoutY="31.0" prefHeight="110.0" prefWidth="242.0" style="-fx-background-color: #F5BABA;">
+               <children>
+                  <Label layoutX="10.0" layoutY="40.0" prefHeight="35.0" prefWidth="220.0" text="Total Properties">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="60.0" prefHeight="35.0" prefWidth="220.0" text="elite-real-state">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalPro" layoutX="169.0" layoutY="-9.0" prefHeight="70.0" prefWidth="80.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="47.0" fitWidth="57.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asstets/icons8-property-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="448.0" layoutY="31.0" prefHeight="110.0" prefWidth="242.0" style="-fx-background-color: #E3D0C5;">
+               <children>
+                  <Label layoutX="9.0" layoutY="43.0" prefHeight="35.0" prefWidth="220.0" text="Total Appoinments">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="9.0" layoutY="56.0" prefHeight="35.0" prefWidth="220.0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="11.0" layoutY="62.0" prefHeight="35.0" prefWidth="220.0" text="elite-real-state">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalApp" layoutX="167.0" layoutY="-9.0" prefHeight="70.0" prefWidth="80.0" text="00">
+                     <font>
+                        <Font name="System Bold" size="52.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="47.0" fitWidth="60.0" layoutX="7.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asstets/icons8-appointments-64.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label layoutX="36.0" layoutY="90.0" prefHeight="102.0" prefWidth="301.0" text="Welcome Back Admin,">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="151.0" prefHeight="21.0" prefWidth="198.0" text="E l i t e  R e a l  E s t a t e " textFill="#ff5e00" underline="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="83.0" fitWidth="82.0" layoutX="309.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/wave.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblTime" layoutX="103.0" layoutY="6.0" prefHeight="70.0" prefWidth="220.0" text="Label" textAlignment="CENTER">
+               <font>
+                  <Font name="System Italic" size="48.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="84.0" layoutY="66.0" prefHeight="35.0" prefWidth="301.0" text="Label">
+               <font>
+                  <Font name="System Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="602.0" layoutY="162.0" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #D3E698;" text="Today Appointments">
+               <font>
+                  <Font name="System Italic" size="24.0" />
+               </font>
+            </Label>
+            <BarChart fx:id="barChart" layoutX="-11.0" layoutY="215.0" prefHeight="420.0" prefWidth="463.0" title="Property Types">
+              <xAxis>
+                <CategoryAxis prefHeight="23.0" prefWidth="407.0" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+               <cursor>
+                  <Cursor fx:constant="NONE" />
+               </cursor>
+            </BarChart>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

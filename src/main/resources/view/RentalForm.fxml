@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rentPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.RentalFormController">
+   <children>
+      <Pane layoutY="-1.0" prefHeight="605.0" prefWidth="970.0" stylesheets="@../style/style.css">
+         <children>
+            <TableView fx:id="tblRent" layoutX="22.0" layoutY="110.0" prefHeight="479.0" prefWidth="922.0">
+               <columns>
+                  <TableColumn fx:id="colRentId" prefWidth="119.20000839233398" text="Rent_id" />
+                  <TableColumn fx:id="colPropertyId" prefWidth="122.40007019042969" text="Property_id" />
+                  <TableColumn fx:id="colAgentId" prefWidth="126.39996337890625" text="Customer_id" />
+                  <TableColumn fx:id="colDate" prefWidth="146.39996337890625" text="Date" />
+                  <TableColumn fx:id="colDuration" prefWidth="121.60003662109375" text="Duration" />
+                  <TableColumn fx:id="colMaintain" prefWidth="147.99993896484375" text="Maintain" />
+                  <TableColumn fx:id="colDelete" prefWidth="149.60009765625" text="Delete" />
+               </columns>
+            </TableView>
+            <Label layoutX="22.0" layoutY="-9.0" prefHeight="102.0" prefWidth="301.0" text="Rental Details Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="785.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnViewPropertyOnAction" prefHeight="42.0" prefWidth="155.0" styleClass="btn" text="View Property" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="796.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/icons8-show-property-50.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="228.0" layoutY="-9.0" prefHeight="102.0" prefWidth="301.0" text="Elite" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="594.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnViewMaintainOnAction" prefHeight="42.0" prefWidth="176.0" styleClass="btn" text="View Maintenance" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="602.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/icons8-maintain-64.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

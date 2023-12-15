@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buyProperty" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c6909f7-1952-43d7-ac29-ebbd47caa72b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<parameter name="Payment_id" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    Customer.Name,
+    Property.Price,
+    Property.Address,
+    Property.Type,
+    Property.Perches,
+    Payment.Date,
+    Payment.Method
+FROM
+    Property
+        JOIN
+    Payment ON Property.Property_id = Payment.Property_id
+        JOIN
+    Payment_details ON Property.Property_id = Payment_details.Property_id
+        JOIN
+    Customer ON Payment.Customer_id = Customer.Customer_id WHERE payment.Payment_id=$P{Payment_id};
+]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Price" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Price"/>
+		<property name="com.jaspersoft.studio.field.label" value="Price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="property"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="property"/>
+	</field>
+	<field name="Type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Type"/>
+		<property name="com.jaspersoft.studio.field.label" value="Type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="property"/>
+	</field>
+	<field name="Perches" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Perches"/>
+		<property name="com.jaspersoft.studio.field.label" value="Perches"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="property"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Method" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Method"/>
+		<property name="com.jaspersoft.studio.field.label" value="Method"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="190" y="20" width="200" height="30" uuid="8880fa8c-01b4-4762-8d4b-7b6c9c3ec89f"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Succesfull]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="214" splitType="Stretch">
+			<textField>
+				<reportElement x="300" y="10" width="80" height="20" uuid="3574c869-7d3a-4e0a-b279-3fe2f09fe861"/>
+				<textFieldExpression><![CDATA[$P{Payment_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="10" width="76" height="20" uuid="28e3f873-3718-4f91-ae86-0ec5c7779da9"/>
+				<text><![CDATA[Payment Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="33" width="76" height="20" uuid="ca274049-cb2c-4d5a-8059-843dd346b5ad"/>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="33" width="79" height="20" uuid="e9f59003-d371-4e92-b2d3-7cf000be5fe9"/>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="57" width="79" height="23" uuid="5896396d-41d4-44dc-9a74-3a64f1602ab6"/>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="161" y="57" width="89" height="23" uuid="5549c520-013d-4387-bf69-a701df53f68c"/>
+				<text><![CDATA[Property Address]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="83" width="80" height="27" uuid="86425c9f-37af-4660-97b2-76b164bbc0a3"/>
+				<textFieldExpression><![CDATA[$F{Type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="163" y="82" width="87" height="28" uuid="916ef005-ea50-4d46-939c-4bec0778033c"/>
+				<text><![CDATA[Property Type]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="302" y="110" width="78" height="20" uuid="5d9d9988-4385-4b66-8dcf-5081a1922883"/>
+				<textFieldExpression><![CDATA[$F{Perches}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="110" width="88" height="20" uuid="f96670ed-535e-4d18-adac-1e91814b5637"/>
+				<text><![CDATA[Perches]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="130" width="80" height="20" uuid="721138ba-64ed-44dd-9dd6-e8e4afea23b2"/>
+				<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="130" width="90" height="20" uuid="3912d9fa-5732-4037-899b-67ffe8eea89f"/>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="151" width="81" height="19" uuid="efcd553b-b60d-4326-91b2-d401e5db6ee1"/>
+				<textFieldExpression><![CDATA[$F{Method}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="161" y="151" width="89" height="19" uuid="66e5e827-873f-4f21-b631-1570dbca06f8"/>
+				<text><![CDATA[Method]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="298" y="171" width="82" height="20" uuid="9ceff6e6-6e03-41f5-a617-9045b1b86fd7"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="172" width="88" height="19" uuid="0e26e359-5132-4cec-91c9-d531849d4915"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

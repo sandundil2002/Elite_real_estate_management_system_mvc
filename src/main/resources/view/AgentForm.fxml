@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="agent" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.AgentFormController">
+   <children>
+      <Pane layoutY="-1.0" prefHeight="605.0" prefWidth="970.0" stylesheets="@../style/style.css">
+         <children>
+            <TableView fx:id="tblAgent" layoutX="22.0" layoutY="94.0" prefHeight="495.0" prefWidth="925.0">
+               <columns>
+                  <TableColumn fx:id="colAgentid" prefWidth="89.60000228881836" text="Agent Id" />
+                  <TableColumn fx:id="colName" prefWidth="187.19996643066406" text="Name" />
+                  <TableColumn fx:id="colAddress" prefWidth="206.4000244140625" text="Address" />
+                  <TableColumn fx:id="colMobile" prefWidth="188.79998779296875" text="Mobile" />
+                  <TableColumn fx:id="colEmail" prefWidth="255.199951171875" text="Email" />
+               </columns>
+            </TableView>
+            <Label layoutX="23.0" layoutY="-9.0" prefHeight="102.0" prefWidth="301.0" text="Agents Of">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="715.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnAgentmanageOnAction" prefHeight="42.0" prefWidth="161.0" styleClass="btn" text="Manage Agents" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="720.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/icons8-agent-48.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="151.0" layoutY="-9.0" prefHeight="102.0" prefWidth="301.0" text="Elite" textFill="#ff630d">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER_RIGHT" layoutX="555.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnBuyOnAction" prefHeight="42.0" prefWidth="145.0" styleClass="btn" text="Buy Property" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="32.0" fitWidth="54.0" layoutX="563.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asstets/buy.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER_RIGHT" layoutX="890.0" layoutY="31.0" mnemonicParsing="false" onAction="#btnRefeshOnAction" prefHeight="45.0" prefWidth="32.0" styleClass="btn" textFill="#ffa72b">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asstets/reload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

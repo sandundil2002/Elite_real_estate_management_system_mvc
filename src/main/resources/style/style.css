@@ -1,0 +1,43 @@
+.liner-background {
+    -fx-background-color: linear-gradient(to left top,rgba(96,97,101,1) , #f1f1f2);
+}
+
+.backPane{
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-background-color: #fff6f6;
+    -fx-opacity: 100;
+}
+.mainfont{
+    -fx-font-family: 'Poppins', sans-serif;
+}
+.loginbtn{
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-background-color: #f8e0c8;
+    -fx-text-fill: #000000;
+}
+.sidePane{
+    -fx-background-radius: 0,30, 30 ,0;
+    -fx-border-radius: 0,30, 30 ,0;
+    -fx-opacity: 100;
+}
+.btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #000000;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-font-size: 15;
+}
+
+.btn:hover {
+    -fx-background-color: #ffa675;
+    -fx-border-color: #000000;
+    -fx-text-fill: #464646;
+}
+.lablebtn{
+    -fx-border-color: #000000;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-text-alignment: Center;
+}
