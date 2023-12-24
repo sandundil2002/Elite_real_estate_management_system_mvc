@@ -50,7 +50,9 @@ public class RentPropertyFormController {
                 CustomerDto customerDto = CustomerModel.searchCustomer(t1.toString());
                 txtCustomerName.setText(customerDto.getName());
             } catch (SQLException e) {
-                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
 
@@ -119,7 +121,9 @@ public class RentPropertyFormController {
 
             comCusid.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

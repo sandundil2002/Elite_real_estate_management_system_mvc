@@ -54,6 +54,8 @@ public class PlaceorderFromController {
                 txtCustomerName.setText(customerDto.getName());
             } catch (SQLException e) {
                 e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
 
@@ -119,6 +121,8 @@ public class PlaceorderFromController {
             comCusid.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
