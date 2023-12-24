@@ -105,6 +105,8 @@ public class ShedulemanageFormController {
                             }
                         } catch (SQLException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                        } catch (ClassNotFoundException ex) {
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
                 });
@@ -123,6 +125,8 @@ public class ShedulemanageFormController {
                             }
                         } catch (SQLException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                        } catch (ClassNotFoundException ex) {
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
                 }
@@ -140,6 +144,8 @@ public class ShedulemanageFormController {
             }
             tblShedule.setItems(obList);
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
