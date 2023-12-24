@@ -109,7 +109,9 @@ public class PropertyFormController {
                                 new Alert(Alert.AlertType.WARNING, "Try Again !", ButtonType.OK).show();
                             }
                         } catch (SQLException ex) {
-                            ex.printStackTrace();
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                        } catch (ClassNotFoundException ex) {
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
                 });
@@ -126,7 +128,9 @@ public class PropertyFormController {
             }
             tblproperty.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

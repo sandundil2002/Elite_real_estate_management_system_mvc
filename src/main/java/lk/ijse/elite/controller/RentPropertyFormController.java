@@ -41,7 +41,9 @@ public class RentPropertyFormController {
                 PropertyDto propertyDto = PropertyModel.searchProperty(t1.toString());
                 txtPropertyPrice.setText(propertyDto.getPrice());
             } catch (SQLException e) {
-                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
 
@@ -106,7 +108,9 @@ public class RentPropertyFormController {
             }
             comProid.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
