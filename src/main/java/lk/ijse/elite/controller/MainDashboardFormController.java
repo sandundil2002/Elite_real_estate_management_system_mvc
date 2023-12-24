@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,11 +77,25 @@ public class MainDashboardFormController {
 
 
     private int getTotalPropertiesCount() {
-        return DashboardModel.getTotalPropertiesCount();
+        try {
+            return DashboardModel.getTotalPropertiesCount();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+        return 0;
     }
 
     private int getTotalAppointmentsCount() {
-        return DashboardModel.getTotalAppointmentsCount();
+        try {
+            return DashboardModel.getTotalAppointmentsCount();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+        return 0;
     }
 
     private void setCellValueFactory(){
