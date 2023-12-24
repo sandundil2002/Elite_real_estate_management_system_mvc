@@ -3,6 +3,7 @@ package lk.ijse.elite.model;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.MaintainDto;
 import lk.ijse.elite.dto.RentingDto;
+import lk.ijse.elite.utill.SQLUtill;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,33 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MaintainModel {
-    public static Connection connection;
-
-    static {
-        try {
-            connection = DbConnection.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public boolean addMaintain(MaintainDto dto) throws SQLException, ClassNotFoundException {
+       return SQLUtill.sql("INSERT INTO maintain VALUES (?,?,?,?)",dto.getMaintain_id(),dto.getRent_id(),dto.getDate(),dto.getStatus());
     }
 
-    public boolean addMaintain(MaintainDto maintainDto) throws SQLException {
-        String sql = "INSERT INTO maintain VALUES (?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, maintainDto.getMaintain_id());
-        statement.setString(2, maintainDto.getRent_id());
-        statement.setString(3, maintainDto.getDate());
-        statement.setString(4, maintainDto.getStatus());
-
-        boolean isAdded = statement.executeUpdate() > 0;
-        return isAdded;
-    }
-
-    public List<MaintainDto> loadAllMaintenance() throws SQLException {
-        String sql = "SELECT * FROM maintain";
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
+    public List<MaintainDto> loadAllMaintenance() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM maintain");
         List<MaintainDto> maintainList = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -52,23 +32,11 @@ public class MaintainModel {
         return maintainList;
     }
 
-    public boolean updateMaintainComplete(String maintainId) throws SQLException {
-        String sql = "UPDATE maintain SET Status = ? WHERE Maintain_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, "Completed");
-        statement.setString(2, maintainId);
-
-        return statement.executeUpdate() > 0;
+    public boolean updateMaintainComplete(String maintainId) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("UPDATE maintain SET Status = ? WHERE Maintain_id = ?","Completed",maintainId);
     }
 
-    public boolean updateMaintainCansel(String maintainId) throws SQLException {
-        String sql = "UPDATE maintain SET Status = ? WHERE Maintain_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, "Canseled");
-        statement.setString(2, maintainId);
-
-        return statement.executeUpdate() > 0;
+    public boolean updateMaintainCansel(String maintainId) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("UPDATE maintain SET Status = ? WHERE Maintain_id = ?","Canceled",maintainId);
     }
 }

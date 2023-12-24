@@ -47,7 +47,9 @@ public class MaintainmanageFormController {
                 new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
         }
     }
 
