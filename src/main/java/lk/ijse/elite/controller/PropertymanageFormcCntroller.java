@@ -43,9 +43,10 @@ public class PropertymanageFormcCntroller {
 
         txtAgentid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
-                AgentDto agentDto = AgentModel.searchAgent(t1.toString());
-                txtAgentid.setValue(agentDto.getAgent_id());
+                txtAgentid.setValue(AgentModel.searchAgent(t1.toString()).getAgent_id());
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         });
@@ -153,7 +154,9 @@ public class PropertymanageFormcCntroller {
             }
             txtAgentid.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
     private boolean validateProperty() {
