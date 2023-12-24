@@ -24,8 +24,9 @@ public class AdminloginFormController {
         String adminid = txtAdminid.getText();
         String password = txtPassword.getText();
         AdminModel adminModel = new AdminModel();
-        boolean isvalidAdminUserId = adminModel.searchAdminUserId(adminid);
-        boolean isvalidAdminPassword = adminModel.searchAdminPassword(password);
+        try {
+            boolean isvalidAdminUserId = adminModel.searchAdminUserId(adminid);
+            boolean isvalidAdminPassword = adminModel.searchAdminPassword(password);
 
         if(!isvalidAdminUserId) {
             new Alert(Alert.AlertType.ERROR, "Invalid User Id Please Try Again!!!").show();
@@ -40,6 +41,11 @@ public class AdminloginFormController {
             stage.setScene(scene);
             stage.setTitle("Dashboard Form");
             stage.centerOnScreen();
+        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

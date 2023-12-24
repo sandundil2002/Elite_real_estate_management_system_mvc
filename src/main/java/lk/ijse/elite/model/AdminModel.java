@@ -1,28 +1,15 @@
 package lk.ijse.elite.model;
 
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AdminDto;
-
+import lk.ijse.elite.utill.SQLUtill;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AdminModel {
-    public static Connection connection;
-
-    static {
-        try {
-            connection = DbConnection.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<AdminDto> loadAllAdmin() throws SQLException {
-        String sql = "SELECT * FROM admin";
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
+    public static List<AdminDto> loadAllAdmin() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT Admin_id FROM admin");
         List<AdminDto> adminList = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -38,60 +25,22 @@ public class AdminModel {
         return adminList;
     }
 
-    public static AdminDto searchAdmin(String string) throws SQLException {
-        String sql = "SELECT * FROM admin WHERE Admin_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, string);
-
-        ResultSet resultSet = statement.executeQuery();
-        AdminDto adminDto = null;
-
-        if (resultSet.next()) {
-            adminDto = new AdminDto(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getString(5),
-                    resultSet.getString(4),
-                    resultSet.getString(3),
-                    resultSet.getString(6)
-            );
-        }
-        return adminDto;
+    public static void searchAdmin(String id) throws SQLException, ClassNotFoundException {
+        SQLUtill.sql("SELECT * FROM admin WHERE Admin_id=?",id);
     }
 
-    public boolean searchAdminPassword(String string) throws SQLException {
-        String sql = "SELECT * FROM admin WHERE password = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, string);
-
-        ResultSet resultSet = statement.executeQuery();
+    public boolean searchAdminPassword(String string) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM admin WHERE password=?", string);
         return resultSet.next();
     }
 
-    public boolean searchAdminUserId(String string) throws SQLException {
-        String sql = "SELECT * FROM admin WHERE Admin_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, string);
-
-        ResultSet resultSet = statement.executeQuery();
+    public boolean searchAdminUserId(String string) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM admin WHERE Admin_id=?", string);
         return resultSet.next();
     }
 
-    public boolean registerAdmin(AdminDto dto) throws SQLException {
-        String sql = "insert into admin values (?,?,?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, dto.getAdmin_id());
-        statement.setString(2, dto.getName());
-        statement.setString(3, dto.getAddress());
-        statement.setString(4, dto.getMobile());
-        statement.setString(5, dto.getPassword());
-        statement.setString(6, dto.getEmail());
-
-        boolean isSaved = statement.executeUpdate() > 0;
-        return isSaved;
+    public boolean registerAdmin(AdminDto dto) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("INSERT INTO admin VALUES (?,?,?,?,?,?)",dto.getAdmin_id(),dto.getName(),dto.getAddress(),dto.getMobile(),dto.getPassword(),dto.getEmail());
     }
 }
 

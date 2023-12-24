@@ -189,9 +189,8 @@ public class EmployeeManageformController {
             for (AdminDto adminDto  : adList) {
                 obList.add(adminDto.getAdmin_id());
             }
-
             cmbAdminid.setItems(obList);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

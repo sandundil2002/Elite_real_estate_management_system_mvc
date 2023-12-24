@@ -39,9 +39,11 @@ public class SheduleFormController {
 
         cmbAdminId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
-                AdminDto adminDto = AdminModel.searchAdmin(t1.toString());
+                AdminModel.searchAdmin(t1.toString());
             } catch (SQLException e) {
                 e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -137,6 +139,8 @@ public class SheduleFormController {
 
             cmbAdminId.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
