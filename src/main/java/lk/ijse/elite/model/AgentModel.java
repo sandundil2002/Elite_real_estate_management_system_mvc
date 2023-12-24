@@ -1,11 +1,7 @@
 package lk.ijse.elite.model;
 
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AgentDto;
 import lk.ijse.elite.utill.SQLUtill;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

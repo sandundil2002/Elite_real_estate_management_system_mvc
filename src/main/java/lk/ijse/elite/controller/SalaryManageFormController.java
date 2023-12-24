@@ -39,7 +39,9 @@ public class SalaryManageFormController {
                 txtName.setText(employeeDto.getName());
                 txtAmount.setText(employeeDto.getBasicSalary());
             } catch (SQLException e) {
-                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
         
@@ -77,7 +79,9 @@ public class SalaryManageFormController {
             }
             cmdPosition.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

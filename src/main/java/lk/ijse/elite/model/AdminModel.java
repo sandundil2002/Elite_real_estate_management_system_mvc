@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AdminModel {
     public static List<AdminDto> loadAllAdmin() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT Admin_id FROM admin");
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM admin");
         List<AdminDto> adminList = new ArrayList<>();
 
         while (resultSet.next()) {
