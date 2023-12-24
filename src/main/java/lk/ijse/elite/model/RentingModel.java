@@ -5,10 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.*;
-import lk.ijse.elite.dto.tm.RentingTm;
-
+import lk.ijse.elite.utill.SQLUtill;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -47,28 +45,18 @@ public class RentingModel {
         return false;
     }
 
-    private static boolean saveRent(RentDto rentDto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "insert into renting values (?,?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, rentDto.getRentId());
-        statement.setString(2, rentDto.getPropertyId());
-        statement.setString(3, rentDto.getCustomerId());
-        statement.setString(4, rentDto.getDate());
-        statement.setString(5, rentDto.getDuration());
-
-        boolean isSaved = statement.executeUpdate() > 0;
-        return isSaved;
+    private static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("INSERT INTO renting VALUES(?,?,?,?,?)",
+                dto.getRentId(),
+                dto.getPropertyId(),
+                dto.getCustomerId(),
+                dto.getDate(),
+                dto.getDuration()
+        );
     }
 
-    public static ObservableList<RentingDto> loadAllRentals() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "SELECT * FROM renting";
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
+    public static ObservableList<RentingDto> loadAllRentals() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM renting");
         ObservableList<RentingDto> rentingList = FXCollections.observableArrayList();
 
         while (resultSet.next()) {
@@ -83,14 +71,7 @@ public class RentingModel {
         return rentingList;
     }
 
-    public boolean deleteRenting(String rentId) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "DELETE FROM renting WHERE rent_id=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, rentId);
-
-        return statement.executeUpdate() > 0;
+    public boolean deleteRenting(String rentId) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("DELETE FROM renting WHERE rentId=?", rentId);
     }
 }

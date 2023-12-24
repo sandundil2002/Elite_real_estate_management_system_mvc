@@ -65,7 +65,9 @@ public class MaintainmanageFormController {
 
             cmbRentId.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
     }
 

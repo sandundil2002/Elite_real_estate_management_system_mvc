@@ -105,6 +105,8 @@ public class RentalFormController {
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
+                        } catch (ClassNotFoundException ex) {
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
                 });
@@ -121,6 +123,8 @@ public class RentalFormController {
             }
             tblRent.setItems(obList);
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
