@@ -45,8 +45,7 @@ public class ScheduleModel {
                 dto.getDate(),
                 dto.getTime(),
                 dto.getStatus(),
-                dto.getScheduleId()
-        );
+                dto.getScheduleId());
     }
 
     public SheduleDto searchShedule(String id) throws SQLException, ClassNotFoundException {
