@@ -13,7 +13,7 @@ import static lk.ijse.elite.model.PaymentDetailModel.savePaymentDetail;
 import static lk.ijse.elite.model.PaymentModel.savePayment;
 
 public class PlaceOrderModel {
-    public static boolean isUpdated(PaymentDto paymentDto, PaymentdetailDto paymentdetailDto) throws SQLException {
+    public static boolean isUpdated(PaymentDto paymentDto, PaymentdetailDto paymentdetailDto) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);

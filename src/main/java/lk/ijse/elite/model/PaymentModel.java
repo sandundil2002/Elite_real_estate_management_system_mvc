@@ -1,20 +1,15 @@
 package lk.ijse.elite.model;
 
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.PaymentDto;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import lk.ijse.elite.utill.SQLUtill;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentModel {
-    public List<PaymentDto> getAllPayments() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM payment";
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
+    public List<PaymentDto> getAllPayments() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtill.sql("SELECT * FROM payment");
         List<PaymentDto> paymentList = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -30,19 +25,7 @@ public class PaymentModel {
         return paymentList;
     }
 
-    public static boolean savePayment(PaymentDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "INSERT INTO payment VALUES (?,?,?,?,?,?)";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-
-        pstm.setString(1, dto.getPayment_id());
-        pstm.setString(2, dto.getCustomer_id());
-        pstm.setString(3, dto.getProperty_id());
-        pstm.setString(4, dto.getDate());
-        pstm.setString(5, dto.getMethod());
-        pstm.setString(6, dto.getPrice());
-
-        return pstm.executeUpdate() > 0;
+    public static boolean savePayment(PaymentDto dto) throws SQLException, ClassNotFoundException {
+        return SQLUtill.sql("INSERT INTO payment VALUES (?,?,?,?,?,?)",dto.getPayment_id(),dto.getCustomer_id(),dto.getProperty_id(),dto.getDate(),dto.getMethod(),dto.getPrice());
     }
 }

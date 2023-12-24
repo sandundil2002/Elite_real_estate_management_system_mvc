@@ -2,6 +2,7 @@ package lk.ijse.elite.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.*;
 import lk.ijse.elite.dto.tm.RentingTm;
@@ -38,9 +39,12 @@ public class RentingModel {
             }
             connection.rollback();
             return false;
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } finally {
             connection.setAutoCommit(true);
         }
+        return false;
     }
 
     private static boolean saveRent(RentDto rentDto) throws SQLException {
