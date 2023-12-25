@@ -3,10 +3,9 @@ package lk.ijse.elite.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.*;
-import lk.ijse.elite.utill.SQLUtill;
-import java.sql.Connection;
+import lk.ijse.elite.util.SQLUtil;
+import lk.ijse.elite.util.TransactionUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,9 +14,8 @@ import static lk.ijse.elite.model.RentingDetailModel.saveRentingDetail;
 
 public class RentingModel {
     public static boolean isUpdated(RentDto rentDto, RentingDetailDto rentDetailDto, PaymentDto paymentDto, PaymentdetailDto paymentdetailDto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
         try {
-            connection.setAutoCommit(false);
+            TransactionUtil.startTransaction();
             boolean isPaymentSaved = PaymentModel.savePayment(paymentDto);
             if(isPaymentSaved){
                 boolean isPaymentDetailSaved = PaymentDetailModel.savePaymentDetail(paymentdetailDto);
@@ -28,25 +26,25 @@ public class RentingModel {
                         if(isRentDetailSaved){
                             boolean isPropertyUpdated = updateProperty(rentDto.getPropertyId());
                             if(isPropertyUpdated){
-                                connection.commit();
                                 return true;
                             }
                         }
                     }
                 }
             }
-            connection.rollback();
+            TransactionUtil.rollBack();
             return false;
         } catch (ClassNotFoundException e) {
+            TransactionUtil.rollBack();
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } finally {
-            connection.setAutoCommit(true);
+            TransactionUtil.endTransaction();
         }
         return false;
     }
 
     private static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("INSERT INTO renting VALUES(?,?,?,?,?)",
+        return SQLUtil.sql("INSERT INTO renting VALUES(?,?,?,?,?)",
                 dto.getRentId(),
                 dto.getPropertyId(),
                 dto.getCustomerId(),
@@ -56,7 +54,7 @@ public class RentingModel {
     }
 
     public static ObservableList<RentingDto> loadAllRentals() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM renting");
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM renting");
         ObservableList<RentingDto> rentingList = FXCollections.observableArrayList();
 
         while (resultSet.next()) {
@@ -72,6 +70,6 @@ public class RentingModel {
     }
 
     public boolean deleteRenting(String rentId) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("DELETE FROM renting WHERE rentId=?", rentId);
+        return SQLUtil.sql("DELETE FROM renting WHERE rentId=?", rentId);
     }
 }

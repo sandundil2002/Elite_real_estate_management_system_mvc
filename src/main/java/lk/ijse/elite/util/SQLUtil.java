@@ -1,4 +1,4 @@
-package lk.ijse.elite.utill;
+package lk.ijse.elite.util;
 
 import lk.ijse.elite.db.DbConnection;
 
@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SQLUtill {
+public class SQLUtil {
     public static <T> T sql(String sql, Object... args) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement stm = connection.prepareStatement(sql);

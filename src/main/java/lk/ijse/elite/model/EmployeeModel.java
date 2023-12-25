@@ -1,7 +1,7 @@
 package lk.ijse.elite.model;
 
 import lk.ijse.elite.dto.EmployeeDto;
-import lk.ijse.elite.utill.SQLUtill;
+import lk.ijse.elite.util.SQLUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class EmployeeModel {
     public static List<EmployeeDto> loadAllEmployees() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM employee");
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM employee");
         List<EmployeeDto> employeeList = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -27,22 +27,22 @@ public class EmployeeModel {
     }
 
     public static int getEmployeeCount() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT COUNT(*) FROM employee");
+        ResultSet resultSet = SQLUtil.sql("SELECT COUNT(*) FROM employee");
         return resultSet.next() ? resultSet.getInt(1) : 0;
     }
 
     public boolean saveEmployee(EmployeeDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("INSERT INTO employee VALUES (?,?,?,?,?,?,?)",
+        return SQLUtil.sql("INSERT INTO employee VALUES (?,?,?,?,?,?,?)",
                 dto.getEmpid(),dto.getAdid(),dto.getName(),dto.getAddress(),dto.getMobile(),dto.getPosition(),dto.getBasicSalary());
     }
 
     public boolean updateEmployee(EmployeeDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("UPDATE employee SET Admin_id=?,Name=?,Address=?,Mobile=?,Position=?,Basic_salary=? WHERE Employee_id=?",
+        return SQLUtil.sql("UPDATE employee SET Admin_id=?,Name=?,Address=?,Mobile=?,Position=?,Basic_salary=? WHERE Employee_id=?",
                 dto.getAdid(),dto.getName(),dto.getAddress(),dto.getMobile(),dto.getPosition(),dto.getBasicSalary(),dto.getEmpid());
     }
 
     public EmployeeDto searchEmployee(String eid) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM employee WHERE Employee_id=?", eid);
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM employee WHERE Employee_id=?", eid);
 
         if (resultSet.next()) {
             return new EmployeeDto(
@@ -59,7 +59,7 @@ public class EmployeeModel {
     }
 
     public static EmployeeDto searchEmployeePosition(String position) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM employee WHERE Position=?", position);
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM employee WHERE Position=?", position);
 
         if (resultSet.next()) {
             return new EmployeeDto(
@@ -76,6 +76,6 @@ public class EmployeeModel {
     }
 
     public boolean deleteEmployee(String eid) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("DELETE FROM employee WHERE Employee_id=?", eid);
+        return SQLUtil.sql("DELETE FROM employee WHERE Employee_id=?", eid);
     }
 }

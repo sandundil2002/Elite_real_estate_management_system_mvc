@@ -1,7 +1,7 @@
 package lk.ijse.elite.model;
 
 import lk.ijse.elite.dto.PropertyDto;
-import lk.ijse.elite.utill.SQLUtill;
+import lk.ijse.elite.util.SQLUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PropertyModel {
     public static List<PropertyDto> loadAllProperty() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM property");
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM property");
         List<PropertyDto> proList = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -27,15 +27,15 @@ public class PropertyModel {
     }
 
     public boolean saveProperty(PropertyDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("INSERT INTO property VALUES (?,?,?,?,?,?)", dto.getPropertyId(), dto.getAgentId(), dto.getPrice(), dto.getAddress(), dto.getType(), dto.getPerches(), dto.getStatus());
+        return SQLUtil.sql("INSERT INTO property VALUES (?,?,?,?,?,?,?)", dto.getPropertyId(), dto.getAgentId(), dto.getPrice(), dto.getAddress(), dto.getType(), dto.getPerches(), dto.getStatus());
     }
 
     public boolean updateProperty(PropertyDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("UPDATE property SET Agent_id = ?, Price = ?, Address = ?, Type = ?, Perches = ?, Status = ? WHERE Property_id = ?", dto.getAgentId(), dto.getPrice(), dto.getAddress(), dto.getType(), dto.getPerches(), dto.getStatus(), dto.getPropertyId());
+        return SQLUtil.sql("UPDATE property SET Agent_id = ?, Price = ?, Address = ?, Type = ?, Perches = ?, Status = ? WHERE Property_id = ?", dto.getAgentId(), dto.getPrice(), dto.getAddress(), dto.getType(), dto.getPerches(), dto.getStatus(), dto.getPropertyId());
     }
 
     public static PropertyDto searchProperty(String id) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtill.sql("SELECT * FROM property WHERE Property_id = ?", id);
+        ResultSet resultSet = SQLUtil.sql("SELECT * FROM property WHERE Property_id = ?", id);
 
         if (resultSet.next()){
             String pro_id = resultSet.getString(1);
@@ -51,6 +51,6 @@ public class PropertyModel {
     }
 
     public boolean deleteProperty(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtill.sql("DELETE FROM property WHERE Property_id = ?", id);
+        return SQLUtil.sql("DELETE FROM property WHERE Property_id = ?", id);
     }
 }
