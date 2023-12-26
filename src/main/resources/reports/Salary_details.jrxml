@@ -143,17 +143,17 @@ FROM
 				<reportElement x="115" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
 				<text><![CDATA[Sea Road, 80000]]></text>
 			</staticText>
-			<image>
-				<reportElement x="-10" y="-13" width="120" height="109" uuid="b5245f58-8920-48ed-b87b-8cf3148d3d0c"/>
-				<imageExpression><![CDATA["D:/New folder/logo.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="170" y="105" width="230" height="30" uuid="8f4c0811-93c4-4dd2-8269-b47de17130c5"/>
+				<reportElement x="170" y="95" width="230" height="30" uuid="8f4c0811-93c4-4dd2-8269-b47de17130c5"/>
 				<textElement>
 					<font size="18" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Employee Salary Details]]></text>
 			</staticText>
+			<image>
+				<reportElement x="-21" y="-26" width="160" height="130" uuid="b08608bb-d37b-4ddd-b355-ceafbaff5a74"/>
+				<imageExpression><![CDATA["D:/GDSE 68/First Semester/1 Sem Final Project/Elite-Real-Estate-Management-System/src/main/resources/asstets/logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<summary>
@@ -167,7 +167,7 @@ FROM
 				<text><![CDATA[THANKYOU FOR YOUR SERVICE]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="-31" width="555" height="96" uuid="f4386811-aac1-4800-a106-228bd96aaacc">
+				<reportElement x="0" y="-41" width="555" height="96" uuid="f4386811-aac1-4800-a106-228bd96aaacc">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>

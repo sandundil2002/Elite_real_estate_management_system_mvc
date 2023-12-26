@@ -6,20 +6,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.CustomerDto;
 import lk.ijse.elite.dto.SheduleDto;
 import lk.ijse.elite.model.CustomerModel;
 import lk.ijse.elite.model.ScheduleModel;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class CustomerManageFormController {
     public TextField txtCustomerid;
-    
     public TextField txtAddress;
     public TextField txtMobile;
     public TextField txtEmail;
