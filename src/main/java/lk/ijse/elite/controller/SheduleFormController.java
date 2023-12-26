@@ -12,14 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AdminDto;
 import lk.ijse.elite.dto.SheduleDto;
 import lk.ijse.elite.model.AdminModel;
 import lk.ijse.elite.model.ScheduleModel;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -33,8 +30,12 @@ public class SheduleFormController {
     public TextField txtStatus;
 
 
-    public void initialize() throws SQLException {
-        autoGenerateId();
+    public void initialize(){
+        try {
+            autoGenerateId();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         loadAllAdmins();
 
         cmbAdminId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -163,26 +164,7 @@ public class SheduleFormController {
         return true;
     }
 
-    public void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT Shedule_id FROM schedule ORDER BY Shedule_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("S");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtSheduleId.setText("S00" + id);
-            } else if (id < 100) {
-                txtSheduleId.setText("S0" + id);
-            } else {
-                txtSheduleId.setText("S" + id);
-            }
-        } else {
-            txtSheduleId.setText("S001");
-        }
+    public void autoGenerateId() throws SQLException, ClassNotFoundException {
+        txtSheduleId.setText(new ScheduleModel().generateSheduleId());
     }
 }

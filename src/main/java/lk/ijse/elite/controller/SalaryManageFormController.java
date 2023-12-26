@@ -7,28 +7,27 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.EmployeeDto;
 import lk.ijse.elite.dto.SalaryDto;
 import lk.ijse.elite.model.EmployeeModel;
 import lk.ijse.elite.model.SalaryModel;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class SalaryManageFormController {
     public TextField txtSalaryid;
     public TextField txtEmployeeid;
-    
     public TextField txtName;
     public JFXComboBox cmdPosition;
     public DatePicker dtpDate;
     public TextField txtAmount;
 
-    public void initialize() throws SQLException {
-        autoGenarateId();
+    public void initialize(){
+        try {
+            autoGenarateId();
+        } catch (ClassNotFoundException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
         loadAllEmployees();
         dtpDate.setValue(java.time.LocalDate.now());
 
@@ -96,23 +95,7 @@ public class SalaryManageFormController {
         dtpDate.setValue(java.time.LocalDate.now());
     }
 
-    private void autoGenarateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        ResultSet rst = connection.prepareStatement("SELECT salary_id FROM salary ORDER BY salary_id DESC LIMIT 1").executeQuery();
-        if (rst.next()) {
-            String oldId = rst.getString(1);
-            String substring = oldId.substring(1, 4);
-            int intId = Integer.parseInt(substring);
-            intId++;
-            if (intId < 10) {
-                txtSalaryid.setText("S00" + intId);
-            } else if (intId < 100) {
-                txtSalaryid.setText("S0" + intId);
-            } else {
-                txtSalaryid.setText("S" + intId);
-            }
-        } else {
-            txtSalaryid.setText("S001");
-        }
+    private void autoGenarateId() throws SQLException, ClassNotFoundException {
+        txtSalaryid.setText(new SalaryModel().autoGenarateSalaryId());
     }
 }

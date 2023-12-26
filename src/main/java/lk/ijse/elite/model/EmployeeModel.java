@@ -78,4 +78,16 @@ public class EmployeeModel {
     public boolean deleteEmployee(String eid) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("DELETE FROM employee WHERE Employee_id=?", eid);
     }
+
+    public String generateEmployeeId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT Employee_id FROM employee ORDER BY Employee_id DESC LIMIT 1");
+        if(resultSet.next()){
+            String id = resultSet.getString("Employee_id");
+            String numericPart = id.replaceAll("\\D", "");
+            int newEmployeeId = Integer.parseInt(numericPart) + 1 ;
+            return String.format("E%03d", newEmployeeId);
+        } else {
+            return "E001";
+        }
+    }
 }

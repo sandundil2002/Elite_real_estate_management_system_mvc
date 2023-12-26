@@ -8,11 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.elite.model.AdminModel;
-import lk.ijse.elite.sendMail.SendEmail;
-
-import javax.mail.MessagingException;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 
 public class AdminloginFormController {

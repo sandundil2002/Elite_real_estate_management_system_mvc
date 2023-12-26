@@ -72,4 +72,16 @@ public class RentingModel {
     public boolean deleteRenting(String rentId) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("DELETE FROM renting WHERE rentId=?", rentId);
     }
+
+    public String generateRentId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT rent_id FROM renting ORDER BY rent_id DESC LIMIT 1");
+        if (resultSet.next()){
+            String id = resultSet.getString("rent_id");
+            String numericPart = id.replaceAll("\\D","");
+            int newRentId = Integer.parseInt(numericPart)+1;
+            return String.format("R%03d",newRentId);
+        } else {
+            return "R001";
+        }
+    }
 }

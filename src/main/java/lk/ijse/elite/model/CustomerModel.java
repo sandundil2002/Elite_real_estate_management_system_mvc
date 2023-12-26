@@ -54,4 +54,16 @@ public class CustomerModel {
     public boolean deleteCustomer(String cid) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("DELETE FROM customer WHERE Customer_id=?", cid);
     }
+
+    public String generateCustomerId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT Customer_id FROM customer ORDER BY Customer_id DESC LIMIT 1");
+        if (resultSet.next()) {
+            String id = resultSet.getString("Customer_id");
+            String numericPart = id.replaceAll("\\D", "");
+            int newCustomerId = Integer.parseInt(numericPart) + 1;
+            return String.format("C%03d", newCustomerId);
+        } else {
+            return "C001";
+        }
+    }
 }

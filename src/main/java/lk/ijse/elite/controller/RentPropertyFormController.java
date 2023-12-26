@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.*;
 import lk.ijse.elite.model.CustomerModel;
+import lk.ijse.elite.model.PaymentModel;
 import lk.ijse.elite.model.PropertyModel;
 import lk.ijse.elite.model.RentingModel;
 import java.sql.Connection;
@@ -29,11 +30,16 @@ public class RentPropertyFormController {
     public ChoiceBox cmdPaymethod;
     public ChoiceBox cmdDuration;
 
-    public void initialize() throws SQLException {
+    public void initialize(){
         loadAllProperty();
         loadAllCustomer();
-        autoGenarateRentId();
-        autoGenaratePaymentId();
+        try {
+            autoGenarateRentId();
+            autoGenaratePaymentId();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         txtDate.setValue(java.time.LocalDate.now());
 
         comProid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -88,7 +94,7 @@ public class RentPropertyFormController {
                 btnRentClearOnAction();
                 autoGenarateRentId();
             }
-        } catch(SQLException e){
+        } catch(SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
     }
@@ -131,48 +137,11 @@ public class RentPropertyFormController {
         }
     }
 
-    private void autoGenarateRentId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT rent_id FROM renting ORDER BY rent_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("R");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtRentid.setText("R00" + id);
-            } else if (id < 100) {
-                txtRentid.setText("R0" + id);
-            } else {
-                txtRentid.setText("R" + id);
-            }
-        } else {
-            txtRentid.setText("R001");
-        }
+    private void autoGenarateRentId() throws SQLException, ClassNotFoundException {
+        txtRentid.setText(new RentingModel().generateRentId());
     }
 
-    private void autoGenaratePaymentId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT Payment_id FROM Payment ORDER BY Payment_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("Pay");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtpayId.setText("Pay00" + id);
-            } else if (id < 100) {
-                txtpayId.setText("Pay0" + id);
-            } else {
-                txtpayId.setText("Pay" + id);
-            }
-        } else {
-            txtpayId.setText("Pay001");
-        }
+    private void autoGenaratePaymentId() throws SQLException, ClassNotFoundException {
+        txtpayId.setText(new PaymentModel().generatePaymentId());
     }
 }

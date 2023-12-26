@@ -30,7 +30,7 @@ public class CustomerFormController {
     public TableView tblCustomer;
     public TableColumn colSheduleid;
 
-    public void initialize() throws SQLException {
+    public void initialize(){
         setCellValueFactory();
         loadAllCustomers();
     }
@@ -58,7 +58,7 @@ public class CustomerFormController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
 
-    private void loadAllCustomers() throws SQLException {
+    private void loadAllCustomers(){
         var model = new CustomerModel();
 
         ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
@@ -84,7 +84,7 @@ public class CustomerFormController {
         }
     }
 
-    public void btnRefeshOnAction(ActionEvent actionEvent) throws SQLException {
+    public void btnRefeshOnAction(ActionEvent actionEvent){
         initialize();
     }
 }

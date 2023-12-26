@@ -37,8 +37,12 @@ public class PropertymanageFormcCntroller {
     private TextField txtPropertyId;
 
 
-    public void initialize() throws SQLException {
-        autoGenerateId();
+    public void initialize(){
+        try {
+            autoGenerateId();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         loadAllAdmin();
 
         txtAgentid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -184,27 +188,7 @@ public class PropertymanageFormcCntroller {
         return true;
     }
 
-    private void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "SELECT property_id FROM property ORDER BY property_id DESC LIMIT 1";
-        ResultSet resultSet = connection.createStatement().executeQuery(sql);
-        boolean isIdExists = resultSet.next();
-
-        if (isIdExists) {
-            String property_id = resultSet.getString(1);
-            String[] tempArr = property_id.split("P");
-            int id = Integer.parseInt(tempArr[1]);
-            id++;
-            if (id < 10) {
-                txtPropertyId.setText("P00" + id);
-            } else if (id < 100) {
-                txtPropertyId.setText("P0" + id);
-            } else {
-                txtPropertyId.setText("P" + id);
-            }
-        } else {
-            txtPropertyId.setText("P001");
-        }
+    private void autoGenerateId() throws SQLException, ClassNotFoundException {
+        txtPropertyId.setText(new PropertyModel().generatePropertyId());
     }
 }

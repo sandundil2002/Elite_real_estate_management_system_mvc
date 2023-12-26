@@ -89,6 +89,18 @@ public class ScheduleModel {
     public boolean updateSheduleCansel(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("UPDATE schedule SET Status = ? WHERE Shedule_id = ?", "Cansel", id);
     }
+
+    public String generateSheduleId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT Shedule_id FROM schedule ORDER BY Shedule_id DESC LIMIT 1");
+        if (resultSet.next()) {
+            String id = resultSet.getString("Shedule_id");
+            String numericPart = id.replaceAll("\\D+","");
+            int newSheduleId = Integer.parseInt(numericPart) + 1;
+            return String.format("S%03d",newSheduleId);
+        } else {
+            return "S001";
+        }
+    }
 }
 
 

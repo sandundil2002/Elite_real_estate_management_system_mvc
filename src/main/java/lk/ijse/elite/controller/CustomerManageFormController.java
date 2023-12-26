@@ -26,9 +26,13 @@ public class CustomerManageFormController {
     public TextField txtName;
     public JFXComboBox cmbSheduleid;
 
-    public void initialize() throws SQLException {
-        autoGenerateId();
-        loadAllShedule();
+    public void initialize(){
+        try {
+            autoGenerateId();
+            loadAllShedule();
+        } catch (ClassNotFoundException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
@@ -204,26 +208,7 @@ public class CustomerManageFormController {
         }
     }
 
-    private void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT Customer_id FROM customer ORDER BY Customer_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("C");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtCustomerid.setText("C00" + id);
-            } else if (id < 100) {
-                txtCustomerid.setText("C0" + id);
-            } else {
-                txtCustomerid.setText("C" + id);
-            }
-        } else {
-            txtCustomerid.setText("C001");
-        }
+    private void autoGenerateId() throws ClassNotFoundException, SQLException {
+        txtCustomerid.setText(new CustomerModel().generateCustomerId());
     }
 }

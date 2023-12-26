@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AdminModel {
     public static List<AdminDto> loadAllAdmin() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SQLUtil.sql("SELECT * FROM admin");
@@ -41,6 +40,18 @@ public class AdminModel {
 
     public boolean registerAdmin(AdminDto dto) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("INSERT INTO admin VALUES (?,?,?,?,?,?)",dto.getAdmin_id(),dto.getName(),dto.getAddress(),dto.getMobile(),dto.getPassword(),dto.getEmail());
+    }
+
+    public String generateAdminId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT Admin_id FROM admin ORDER BY Admin_id DESC LIMIT 1");
+        if (resultSet.next()) {
+            String id = resultSet.getString("Admin_id");
+            String numericPart = id.replaceAll("\\D", "");
+            int newAdminId = Integer.parseInt(numericPart) + 1;
+            return String.format("A%03d", newAdminId);
+        } else {
+            return "A001";
+        }
     }
 }
 

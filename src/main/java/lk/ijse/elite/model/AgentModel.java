@@ -49,4 +49,16 @@ public class AgentModel {
     public boolean deleteAgent(String agentid) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("DELETE FROM agent WHERE agent_id = ?", agentid);
     }
+
+    public String generateAgentId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT agent_id FROM agent ORDER BY agent_id DESC LIMIT 1");
+        if (resultSet.next()) {
+            String id = resultSet.getString("agent_id");
+            String numericPart = id.replaceAll("\\D", "");
+            int newAgentId = Integer.parseInt(numericPart) + 1;
+            return String.format("Agent%03d", newAgentId);
+        } else {
+            return "Agent001";
+        }
+    }
 }

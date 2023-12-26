@@ -10,6 +10,7 @@ import lk.ijse.elite.dto.PaymentDto;
 import lk.ijse.elite.dto.PaymentdetailDto;
 import lk.ijse.elite.dto.PropertyDto;
 import lk.ijse.elite.model.CustomerModel;
+import lk.ijse.elite.model.PaymentModel;
 import lk.ijse.elite.model.PlaceOrderModel;
 import lk.ijse.elite.model.PropertyModel;
 import net.sf.jasperreports.engine.*;
@@ -17,8 +18,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -32,10 +31,15 @@ public class PlaceorderFromController {
     public TextField txtPaymentid;
     public ChoiceBox cmdPaymethod;
 
-    public void initialize() throws SQLException {
-        loadAllProperty();
-        loadAllCustomer();
-        autoGenarateId();
+    public void initialize(){
+        try {
+            autoGenarateId();
+            loadAllProperty();
+            loadAllCustomer();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         txtDate.setValue(java.time.LocalDate.now());
 
         comProid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -152,26 +156,7 @@ public class PlaceorderFromController {
     }
 
 
-    private void autoGenarateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT Payment_id FROM Payment ORDER BY Payment_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("Pay");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtPaymentid.setText("Pay00" + id);
-            } else if (id < 100) {
-                txtPaymentid.setText("Pay0" + id);
-            } else {
-                txtPaymentid.setText("Pay" + id);
-            }
-        } else {
-            txtPaymentid.setText("Pay001");
-        }
+    private void autoGenarateId() throws SQLException, ClassNotFoundException {
+        txtPaymentid.setText(new PaymentModel().generatePaymentId());
     }
 }

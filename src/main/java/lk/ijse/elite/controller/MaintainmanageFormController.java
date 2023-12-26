@@ -7,13 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.MaintainDto;
 import lk.ijse.elite.dto.RentingDto;
 import lk.ijse.elite.model.MaintainModel;
 import lk.ijse.elite.model.RentingModel;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,9 +20,13 @@ public class MaintainmanageFormController {
     public TextField txtStatus;
     public JFXComboBox cmbRentId;
 
-    public void initialize() throws SQLException {
-        autoGenerateId();
-        loadAllRentIds();
+    public void initialize(){
+        try {
+            autoGenerateId();
+            loadAllRentIds();
+        } catch (ClassNotFoundException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
         dtpDate.setValue(java.time.LocalDate.now());
     }
 
@@ -71,26 +72,7 @@ public class MaintainmanageFormController {
         }
     }
 
-    private void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT maintain_id FROM maintain ORDER BY maintain_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("M");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtMaintainId.setText("M00" + id);
-            } else if (id < 100) {
-                txtMaintainId.setText("M0" + id);
-            } else {
-                txtMaintainId.setText("M" + id);
-            }
-        } else {
-            txtMaintainId.setText("M001");
-        }
+    private void autoGenerateId() throws SQLException, ClassNotFoundException {
+        txtMaintainId.setText(new MaintainModel().generateMaintainId());
     }
 }

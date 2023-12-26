@@ -53,4 +53,16 @@ public class PropertyModel {
     public boolean deleteProperty(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.sql("DELETE FROM property WHERE Property_id = ?", id);
     }
+
+    public String generatePropertyId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.sql("SELECT Property_id FROM property ORDER BY Property_id DESC LIMIT 1");
+        if(resultSet.next()){
+            String id = resultSet.getString("Property_id");
+            String numericPart = id.replaceAll("\\D","");
+            int newPropertyId = Integer.parseInt(numericPart) + 1;
+            return String.format("P%03d", newPropertyId);
+        } else {
+            return "P001";
+        }
+    }
 }

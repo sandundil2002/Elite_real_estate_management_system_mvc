@@ -7,16 +7,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AdminDto;
 import lk.ijse.elite.model.AdminModel;
 import lk.ijse.elite.sendMail.SendEmail;
-
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -31,8 +27,12 @@ public class AdminRegisterFormController {
     public AnchorPane signupPane;
     int otp;
 
-    public void initialize() throws SQLException {
-        autoGenerateId();
+    public void initialize() {
+        try {
+            autoGenerateAdminId();
+        } catch (ClassNotFoundException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     public void btnSignupOnAction(ActionEvent actionEvent) {
@@ -148,26 +148,7 @@ public class AdminRegisterFormController {
         return true;
     }
 
-    public void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        ResultSet resultSet = connection.prepareStatement("SELECT Admin_id FROM admin ORDER BY Admin_id DESC LIMIT 1").executeQuery();
-        boolean isExists = resultSet.next();
-
-        if (isExists) {
-            String old_id = resultSet.getString(1);
-            String[] split = old_id.split("A");
-            int id = Integer.parseInt(split[1]);
-            id++;
-            if (id < 10) {
-                txtAdmin_id.setText("A00" + id);
-            } else if (id < 100) {
-                txtAdmin_id.setText("A0" + id);
-            } else {
-                txtAdmin_id.setText("A" + id);
-            }
-        } else {
-            txtAdmin_id.setText("A001");
-        }
+    public void autoGenerateAdminId() throws SQLException, ClassNotFoundException {
+        txtAdmin_id.setText(new AdminModel().generateAdminId());
     }
 }

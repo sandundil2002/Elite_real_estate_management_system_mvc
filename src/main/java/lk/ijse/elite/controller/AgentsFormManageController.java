@@ -3,11 +3,8 @@ package lk.ijse.elite.controller;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AgentDto;
 import lk.ijse.elite.model.AgentModel;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
@@ -17,8 +14,13 @@ public class AgentsFormManageController {
     public TextField txtAddress;
     public TextField txtMobile;
     public TextField txtEmail;
-    public void initialize() throws SQLException {
-        autoGenerateId();
+
+    public void initialize() {
+        try {
+            autoGenerateId();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
@@ -101,28 +103,8 @@ public class AgentsFormManageController {
         }
     }
 
-    private void autoGenerateId() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "SELECT agent_id FROM agent ORDER BY agent_id DESC LIMIT 1";
-        ResultSet resultSet = connection.createStatement().executeQuery(sql);
-        boolean isIdExists = resultSet.next();
-
-        if (isIdExists) {
-            String agent_id = resultSet.getString(1);
-            String[] tempArr = agent_id.split("Agent");
-            int id = Integer.parseInt(tempArr[1]);
-            id++;
-            if (id < 10) {
-                txtAgentid.setText("Agent00" + id);
-            } else if (id < 100) {
-                txtAgentid.setText("Agent0" + id);
-            } else {
-                txtAgentid.setText("Agent" + id);
-            }
-        } else {
-            txtAgentid.setText("Agent001");
-        }
+    private void autoGenerateId() throws SQLException, ClassNotFoundException {
+        txtAgentid.setText(new AgentModel().generateAgentId());
     }
 
     private boolean validateAgent(){
