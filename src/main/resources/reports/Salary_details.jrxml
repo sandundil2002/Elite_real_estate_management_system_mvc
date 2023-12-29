@@ -152,7 +152,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="-21" y="-26" width="160" height="130" uuid="b08608bb-d37b-4ddd-b355-ceafbaff5a74"/>
-				<imageExpression><![CDATA["D:/GDSE 68/First Semester/1 Sem Final Project/Elite-Real-Estate-Management-System/src/main/resources/asstets/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://i.ibb.co/JzHLLtb/logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
