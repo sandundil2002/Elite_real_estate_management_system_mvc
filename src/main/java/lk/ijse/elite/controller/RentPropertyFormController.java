@@ -14,9 +14,16 @@ import lk.ijse.elite.model.CustomerModel;
 import lk.ijse.elite.model.PaymentModel;
 import lk.ijse.elite.model.PropertyModel;
 import lk.ijse.elite.model.RentingModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 public class RentPropertyFormController {
@@ -90,7 +97,7 @@ public class RentPropertyFormController {
         try {
             boolean isSuccess = RentingModel.isUpdated(rentDto,rentDetailDto,paymentDto,paymentDetailDto);
             if (isSuccess){
-                new Alert(Alert.AlertType.CONFIRMATION,"Rent Succesfull").show();
+                jasperReport();
                 btnRentClearOnAction();
                 autoGenarateRentId();
             }
@@ -104,6 +111,25 @@ public class RentPropertyFormController {
         txtPropertyPrice.clear();
     }
 
+    private void jasperReport(){
+        HashMap buyProperty = new HashMap<>();
+        buyProperty.put("Payment_id",txtpayId.getText());
+
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/buyProperty.jrxml");
+        try {
+            JasperDesign load = JRXmlLoader.load(resourceAsStream);
+            JasperReport compileReport = JasperCompileManager.compileReport(load);
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(
+                            compileReport,
+                            buyProperty,
+                            DbConnection.getInstance().getConnection()
+                    );
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private void loadAllProperty() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {

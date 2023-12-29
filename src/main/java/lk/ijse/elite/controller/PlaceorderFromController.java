@@ -83,7 +83,6 @@ public class PlaceorderFromController {
         try {
             boolean isSuccess = PlaceOrderModel.isUpdated(paymentDto,paymentDetailDto);
             if (isSuccess) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Payment Successfull", ButtonType.OK).show();
                 jasperReport();
                 btnClearOnAction();
                 autoGenarateId();
