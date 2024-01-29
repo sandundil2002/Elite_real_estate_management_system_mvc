@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="property" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.PropertyFormController">
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.PropertyFormController">
    <children>
       <Pane layoutY="-3.0" prefHeight="605.0" prefWidth="970.0" stylesheets="@../style/style.css">
          <children>

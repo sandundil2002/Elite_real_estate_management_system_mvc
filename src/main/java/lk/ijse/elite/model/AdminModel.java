@@ -39,7 +39,7 @@ public class AdminModel {
     }
 
     public boolean registerAdmin(AdminDto dto) throws SQLException, ClassNotFoundException {
-        return SQLUtil.sql("INSERT INTO admin VALUES (?,?,?,?,?,?)",dto.getAdmin_id(),dto.getName(),dto.getAddress(),dto.getMobile(),dto.getPassword(),dto.getEmail());
+        return SQLUtil.sql("INSERT INTO admin VALUES (?,?,?,?,?,?)",dto.getAdmin_id(),dto.getName(),dto.getOtp(),dto.getMobile(),dto.getPassword(),dto.getEmail());
     }
 
     public String generateAdminId() throws SQLException, ClassNotFoundException {

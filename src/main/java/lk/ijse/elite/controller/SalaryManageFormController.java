@@ -3,7 +3,7 @@ package lk.ijse.elite.controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -15,12 +15,24 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SalaryManageFormController {
-    public TextField txtSalaryid;
-    public TextField txtEmployeeid;
-    public TextField txtName;
-    public JFXComboBox cmdPosition;
-    public DatePicker dtpDate;
-    public TextField txtAmount;
+
+    @FXML
+    private TextField txtSalaryid;
+
+    @FXML
+    private TextField txtEmployeeid;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private JFXComboBox cmdPosition;
+
+    @FXML
+    private DatePicker dtpDate;
+
+    @FXML
+    private TextField txtAmount;
 
     public void initialize(){
         try {
@@ -37,21 +49,17 @@ public class SalaryManageFormController {
                 txtEmployeeid.setText(employeeDto.getEmpid());
                 txtName.setText(employeeDto.getName());
                 txtAmount.setText(employeeDto.getBasicSalary());
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            } catch (ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
-        
     }
 
-    public void btnPayOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnPayOnAction() {
         String salaryid = txtSalaryid.getText();
         String employeeid = txtEmployeeid.getText();
-        String name = txtName.getText();
         String amount = txtAmount.getText();
-        String position = cmdPosition.getValue().toString();
         String date = dtpDate.getValue().toString();
 
         var dto = new SalaryDto(salaryid, employeeid, date, amount);
@@ -62,9 +70,7 @@ public class SalaryManageFormController {
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Salary Paid Succesfull").show();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -79,14 +85,13 @@ public class SalaryManageFormController {
                 obList.add(employeeDto.getPosition());
             }
             cmdPosition.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnClearOnAction() {
+    @FXML
+    private void btnClearOnAction() {
         txtSalaryid.clear();
         txtEmployeeid.clear();
         txtName.clear();

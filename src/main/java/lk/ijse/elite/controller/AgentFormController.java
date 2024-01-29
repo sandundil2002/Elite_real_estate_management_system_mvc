@@ -2,12 +2,11 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.elite.dto.AgentDto;
 import lk.ijse.elite.dto.tm.AgentTm;
@@ -18,20 +17,32 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AgentFormController {
-    public AnchorPane agent;
-    public TableColumn colAgentid;
-    public TableColumn colName;
-    public TableColumn colAddress;
-    public TableColumn colMobile;
-    public TableColumn colEmail;
-    public TableView tblAgent;
 
-    public void initialize() throws SQLException {
+    @FXML
+    private TableColumn colAgentid;
+
+    @FXML
+    private TableColumn colName;
+
+    @FXML
+    private TableColumn colAddress;
+
+    @FXML
+    private TableColumn colMobile;
+
+    @FXML
+    private TableColumn colEmail;
+
+    @FXML
+    private TableView tblAgent;
+
+    public void initialize(){
         setCellValueFactory();
         loadAllAgents();
     }
 
-    public void btnAgentmanageOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnAgentmanageOnAction() {
         try {
             URL resource = AgentFormController.class.getResource("/view/agentsManageForm.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -41,7 +52,7 @@ public class AgentFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -71,15 +82,14 @@ public class AgentFormController {
                 ));
             }
             tblAgent.setItems(obList);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
 
     }
 
-    public void btnBuyOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnBuyOnAction() {
         try {
             URL resource = PropertymanageFormcCntroller.class.getResource("/view/propertymanage_form.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -90,15 +100,12 @@ public class AgentFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnRefeshOnAction(ActionEvent actionEvent) {
-        try {
-            initialize();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    @FXML
+    private void btnRefeshOnAction() {
+        initialize();
     }
 }

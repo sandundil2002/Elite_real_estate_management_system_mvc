@@ -1,6 +1,6 @@
 package lk.ijse.elite.controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -12,11 +12,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class AdminloginFormController {
-    public TextField txtPassword;
-    public AnchorPane adminPane;
-    public TextField txtAdminid;
 
-    public void btnLoginOnAction(ActionEvent actionEvent) throws SQLException, IOException {
+    @FXML
+    private TextField txtPassword;
+
+    @FXML
+    private AnchorPane adminPane;
+
+    @FXML
+    private TextField txtAdminid;
+
+    @FXML
+    private void btnLoginOnAction() throws IOException {
         String adminid = txtAdminid.getText();
         String password = txtPassword.getText();
         AdminModel adminModel = new AdminModel();
@@ -38,14 +45,13 @@ public class AdminloginFormController {
             stage.setTitle("Dashboard Form");
             stage.centerOnScreen();
         }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnSignupOnAction(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void btnSignupOnAction() throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/adminregister_form.fxml"));
         Scene scene = new Scene(anchorPane);
         Stage stage = (Stage) adminPane.getScene().getWindow();

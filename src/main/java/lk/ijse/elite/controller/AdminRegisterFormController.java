@@ -1,6 +1,6 @@
 package lk.ijse.elite.controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,14 +18,29 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 public class AdminRegisterFormController {
-    public TextField txtAdmin_id;
-    public TextField txtEmail;
-    public TextField txtName;
-    public TextField txtOtp;
-    public TextField txtMobile;
-    public TextField txtPassword;
-    public AnchorPane signupPane;
-    int otp;
+
+    @FXML
+    private TextField txtAdmin_id;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtOtp;
+
+    @FXML
+    private TextField txtMobile;
+
+    @FXML
+    private TextField txtPassword;
+
+    @FXML
+    private AnchorPane signupPane;
+
+    private int otp;
 
     public void initialize() {
         try {
@@ -35,7 +50,8 @@ public class AdminRegisterFormController {
         }
     }
 
-    public void btnSignupOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSignupOnAction() {
         String id = txtAdmin_id.getText();
         String name = txtName.getText();
         String otp = txtOtp.getText();
@@ -58,10 +74,8 @@ public class AdminRegisterFormController {
                 clearFields();
                 initialize();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -74,7 +88,8 @@ public class AdminRegisterFormController {
         txtPassword.setText("");
     }
 
-    public void btnRequestOtpOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnRequestOtpOnAction() {
         Random random = new Random();
         otp = random.nextInt(9999);
 
@@ -95,7 +110,9 @@ public class AdminRegisterFormController {
             return false;
         }
     }
-    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
+
+    @FXML
+    private void btnLoginOnAction() throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/adminlogin_form.fxml"));
         Scene scene = new Scene(anchorPane);
         Stage stage = (Stage) signupPane.getScene().getWindow();
@@ -148,7 +165,7 @@ public class AdminRegisterFormController {
         return true;
     }
 
-    public void autoGenerateAdminId() throws SQLException, ClassNotFoundException {
+    private void autoGenerateAdminId() throws SQLException, ClassNotFoundException {
         txtAdmin_id.setText(new AdminModel().generateAdminId());
     }
 }

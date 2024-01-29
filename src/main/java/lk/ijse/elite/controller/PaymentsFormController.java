@@ -15,12 +15,24 @@ import java.util.List;
 
 public class PaymentsFormController {
 
-    public TableColumn colPaymentId;
-    public TableColumn colPropertyId;
-    public TableColumn colCustomerId;
-    public TableColumn colDate;
-    public TableColumn colPrice;
-    public TableColumn colMethod;
+    @FXML
+    private TableColumn colPaymentId;
+
+    @FXML
+    private TableColumn colPropertyId;
+
+    @FXML
+    private TableColumn colCustomerId;
+
+    @FXML
+    private TableColumn colDate;
+
+    @FXML
+    private TableColumn colPrice;
+
+    @FXML
+    private TableColumn colMethod;
+
     @FXML
     private TableView<PaymentTm> tblPayment;
 
@@ -56,9 +68,7 @@ public class PaymentsFormController {
                 ));
             }
             tblPayment.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

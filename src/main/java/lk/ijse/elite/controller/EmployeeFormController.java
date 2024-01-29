@@ -2,7 +2,6 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,14 +26,31 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmployeeFormController {
-    public TableColumn colEmpid;
-    public TableColumn colAdid;
-    public TableColumn colName;
-    public TableColumn colAddress;
-    public TableColumn colMobile;
-    public TableColumn colPosition;
-    public TableColumn colPayment;
-    public TableColumn colSalary;
+
+    @FXML
+    private TableColumn colEmpid;
+
+    @FXML
+    private TableColumn colAdid;
+
+    @FXML
+    private TableColumn colName;
+
+    @FXML
+    private TableColumn colAddress;
+
+    @FXML
+    private TableColumn colMobile;
+
+    @FXML
+    private TableColumn colPosition;
+
+    @FXML
+    private TableColumn colPayment;
+
+    @FXML
+    private TableColumn colSalary;
+
     @FXML
     private TableView<EmployeeTm> tblEmployee;
 
@@ -42,7 +58,9 @@ public class EmployeeFormController {
         cellValueFactory();
         loadAllEmployees();
     }
-    public void btnEmployeemanageOnAction(ActionEvent actionEvent) {
+
+    @FXML
+    private void btnEmployeemanageOnAction() {
         try {
             URL resource = EmployeeManageformController.class.getResource("/view/EmployeeManageform.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -52,7 +70,7 @@ public class EmployeeFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -110,27 +128,31 @@ public class EmployeeFormController {
                 ));
             }
             tblEmployee.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnRefeshOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnRefeshOnAction() {
         initialize();
     }
 
-    public void btnsalaryDetailsOnAction(ActionEvent actionEvent) throws JRException, SQLException {
-        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/Salary_details.jrxml");
-        JasperDesign load = JRXmlLoader.load(resourceAsStream);
-        JasperReport compileReport = JasperCompileManager.compileReport(load);
-        JasperPrint jasperPrint =
-                JasperFillManager.fillReport(
-                        compileReport,
-                        null,
-                        DbConnection.getInstance().getConnection()
-                );
-        JasperViewer.viewReport(jasperPrint, false);
+    @FXML
+    private void btnsalaryDetailsOnAction(){
+        try {
+            InputStream resourceAsStream = getClass().getResourceAsStream("/reports/Salary_details.jrxml");
+            JasperDesign load = JRXmlLoader.load(resourceAsStream);
+            JasperReport compileReport = JasperCompileManager.compileReport(load);
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(
+                            compileReport,
+                            null,
+                            DbConnection.getInstance().getConnection()
+                    );
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 }

@@ -1,29 +1,31 @@
 package lk.ijse.elite.controller;
 
-import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.AgentDto;
 import lk.ijse.elite.dto.PropertyDto;
 import lk.ijse.elite.model.AgentModel;
 import lk.ijse.elite.model.PropertyModel;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class PropertymanageFormcCntroller {
-    public ComboBox txtAgentid;
-    public TextField txtStatus;
-    public ChoiceBox cmbType;
+
+    @FXML
+    private ComboBox txtAgentid;
+
+    @FXML
+    private TextField txtStatus;
+
+    @FXML
+    private ChoiceBox cmbType;
+
     @FXML
     private TextField txtAddress;
     
@@ -36,25 +38,21 @@ public class PropertymanageFormcCntroller {
     @FXML
     private TextField txtPropertyId;
 
-
     public void initialize(){
         try {
             autoGenerateId();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         loadAllAdmin();
 
         txtAgentid.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
                 txtAgentid.setValue(AgentModel.searchAgent(t1.toString()).getAgent_id());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (SQLException | ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
-
         cmbType.getItems().addAll("Land","House","Building","Apartment","Office","Warehouse","Shop","Cabin","Farm House");
         cmbType.setValue("Land");
     }
@@ -66,7 +64,8 @@ public class PropertymanageFormcCntroller {
         txtPerches.setText("");
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnUpdateOnAction() {
         String pid = txtPropertyId.getText();
         String aid = txtAgentid.toString();
         String price = txtPrice.getText();
@@ -89,14 +88,13 @@ public class PropertymanageFormcCntroller {
                 new Alert(Alert.AlertType.CONFIRMATION, "Property Update Succesfull!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnSearchOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSearchOnAction() {
         String pid = txtPropertyId.getText();
         var model = new PropertyModel();
         try {
@@ -107,9 +105,7 @@ public class PropertymanageFormcCntroller {
                 new Alert(Alert.AlertType.INFORMATION, "Property Not Found!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -122,7 +118,8 @@ public class PropertymanageFormcCntroller {
         txtPerches.setText(dto.getPerches());
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSaveOnAction() {
         String pId = txtPropertyId.getText();
         String aId = String.valueOf(txtAgentid.getValue());
         String price = txtPrice.getText();
@@ -146,9 +143,7 @@ public class PropertymanageFormcCntroller {
                 clearFields();
                 autoGenerateId();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -163,12 +158,11 @@ public class PropertymanageFormcCntroller {
                 obList.add(agentDto.getAgent_id());
             }
             txtAgentid.setItems(obList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+
     private boolean validateProperty() {
         String priceText = txtPrice.getText();
         boolean priceValidate = Pattern.compile("[$][0-9]{3,}").matcher(priceText).matches();

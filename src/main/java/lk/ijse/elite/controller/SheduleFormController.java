@@ -2,33 +2,35 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import lk.ijse.elite.dto.AdminDto;
 import lk.ijse.elite.dto.SheduleDto;
 import lk.ijse.elite.model.AdminModel;
 import lk.ijse.elite.model.ScheduleModel;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class SheduleFormController {
-    public Pane bodyPane;
-    public TextField txtSheduleId;
-    public TextField txtTime;
-    public DatePicker txtDate;
-    public ComboBox cmbAdminId;
-    public TextField txtStatus;
 
+    @FXML
+    private TextField txtSheduleId;
+
+    @FXML
+    private TextField txtTime;
+
+    @FXML
+    private DatePicker txtDate;
+
+    @FXML
+    private ComboBox cmbAdminId;
+
+    @FXML
+    private TextField txtStatus;
 
     public void initialize(){
         try {
@@ -41,15 +43,14 @@ public class SheduleFormController {
         cmbAdminId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
                 AdminModel.searchAdmin(t1.toString());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (SQLException | ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         });
     }
 
-    public void btnAddOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnAddOnAction() {
         String shedule_id = txtSheduleId.getText();
         String admin_id = String.valueOf(cmbAdminId.getValue());
         String date = txtDate.getValue().toString();
@@ -69,14 +70,13 @@ public class SheduleFormController {
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Schedule Added Succesfull").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnUpdateOnAction() {
         String shedule_id = txtSheduleId.getText();
         String admin_id = String.valueOf(cmbAdminId.getValue());
         String date = txtDate.getValue().toString();
@@ -97,42 +97,9 @@ public class SheduleFormController {
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Schedule Update Succesfull!!!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-    }
-
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
-        String shedule_id = txtSheduleId.getText();
-        var model = new ScheduleModel();
-
-        try{
-            var scheduleModel = new ScheduleModel();
-            SheduleDto dto = model.searchShedule(shedule_id);
-            if(dto != null) {
-                boolean isDeleted = model.deleteShedule(shedule_id);
-                if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Schedule Delete Succesfull!!!").show();
-                }
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Schedule Not Found!!!").show();
-            }
-        } catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
-    public void btnbackOnAction(ActionEvent actionEvent) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml/"));
-        Scene scene = new Scene(anchorPane);
-        Stage stage = (Stage) bodyPane.getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle("Login Form");
-        stage.centerOnScreen();
     }
 
     private void loadAllAdmins() {
@@ -145,10 +112,8 @@ public class SheduleFormController {
             }
 
             cmbAdminId.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -164,7 +129,7 @@ public class SheduleFormController {
         return true;
     }
 
-    public void autoGenerateId() throws SQLException, ClassNotFoundException {
+    private void autoGenerateId() throws SQLException, ClassNotFoundException {
         txtSheduleId.setText(new ScheduleModel().generateSheduleId());
     }
 }

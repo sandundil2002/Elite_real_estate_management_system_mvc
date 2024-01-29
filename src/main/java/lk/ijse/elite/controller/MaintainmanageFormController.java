@@ -3,7 +3,7 @@ package lk.ijse.elite.controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -15,10 +15,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MaintainmanageFormController {
-    public DatePicker dtpDate;
-    public TextField txtMaintainId;
-    public TextField txtStatus;
-    public JFXComboBox cmbRentId;
+
+    @FXML
+    private DatePicker dtpDate;
+
+    @FXML
+    private TextField txtMaintainId;
+
+    @FXML
+    private TextField txtStatus;
+
+    @FXML
+    private JFXComboBox cmbRentId;
 
     public void initialize(){
         try {
@@ -30,7 +38,8 @@ public class MaintainmanageFormController {
         dtpDate.setValue(java.time.LocalDate.now());
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSaveOnAction() {
         String maintainId = txtMaintainId.getText();
         String rentId = String.valueOf(cmbRentId.getValue());
         String date = String.valueOf(dtpDate.getValue());
@@ -47,9 +56,7 @@ public class MaintainmanageFormController {
             } else {
                 new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.WARNING, "Maintenance Not Added Please try again!!!").show();
         }
     }
@@ -65,9 +72,7 @@ public class MaintainmanageFormController {
             }
 
             cmbRentId.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
     }

@@ -2,7 +2,7 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -21,28 +21,47 @@ import java.util.List;
 import java.util.Optional;
 
 public class RentalFormController {
-    public TableColumn colRentId;
-    public TableColumn colPropertyId;
-    public TableColumn colAgentId;
-    public TableColumn colDate;
-    public TableColumn colDuration;
-    public AnchorPane rentPane;
-    public TableView tblRent;
-    public TableColumn colMaintain;
-    public TableColumn colDelete;
 
-    public void initialize() throws SQLException {
+    @FXML
+    private TableColumn colRentId;
+
+    @FXML
+    private TableColumn colPropertyId;
+
+    @FXML
+    private TableColumn colAgentId;
+
+    @FXML
+    private TableColumn colDate;
+
+    @FXML
+    private TableColumn colDuration;
+
+    @FXML
+    private AnchorPane rentPane;
+
+    @FXML
+    private TableView tblRent;
+
+    @FXML
+    private TableColumn colMaintain;
+
+    @FXML
+    private TableColumn colDelete;
+
+    public void initialize(){
         setCellValueFactories();
         loadAllRentals();
     }
 
-    public void btnViewPropertyOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnViewPropertyOnAction() {
         rentPane.getChildren().clear();
         try {
             AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/PropertyForm.fxml"));
             rentPane.getChildren().add(anchorPane);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -84,7 +103,7 @@ public class RentalFormController {
                             stage.setScene(scene);
                             stage.show();
                         } catch (IOException ex) {
-                            ex.printStackTrace();
+                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
                 });
@@ -103,9 +122,7 @@ public class RentalFormController {
                             }else{
                                 new Alert(Alert.AlertType.ERROR, "Failed to delete the Renting").show();
                             }
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        } catch (ClassNotFoundException ex) {
+                        } catch (SQLException | ClassNotFoundException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
@@ -122,20 +139,19 @@ public class RentalFormController {
                 ));
             }
             tblRent.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnViewMaintainOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnViewMaintainOnAction() {
         rentPane.getChildren().clear();
         try {
             AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/maintain_Form.fxml"));
             rentPane.getChildren().add(anchorPane);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 }

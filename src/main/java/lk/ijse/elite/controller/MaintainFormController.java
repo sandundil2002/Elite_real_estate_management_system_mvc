@@ -2,11 +2,10 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.MaintainDto;
 import lk.ijse.elite.dto.tm.MaintainTm;
@@ -21,14 +20,27 @@ import java.util.List;
 import java.util.Optional;
 
 public class MaintainFormController {
-    public AnchorPane maintainPane;
+
+    @FXML
     public TableView tblMaintain;
-    public TableColumn colMaintainid;
-    public TableColumn colRentId;
-    public TableColumn colDate;
-    public TableColumn colStatus;
-    public TableColumn colFinished;
-    public TableColumn colCansel;
+
+    @FXML
+    private TableColumn colMaintainid;
+
+    @FXML
+    private TableColumn colRentId;
+
+    @FXML
+    private TableColumn colDate;
+
+    @FXML
+    private TableColumn colStatus;
+
+    @FXML
+    private TableColumn colFinished;
+
+    @FXML
+    private TableColumn colCansel;
 
     public void initialize() {
         cellValueFactory();
@@ -43,6 +55,7 @@ public class MaintainFormController {
         colFinished.setCellValueFactory(new PropertyValueFactory<>("btnFinished"));
         colCansel.setCellValueFactory(new PropertyValueFactory<>("btnCansel"));
     }
+
     private void loadAllMaintain() {
         var model = new MaintainModel();
 
@@ -72,7 +85,7 @@ public class MaintainFormController {
                                 new Alert(Alert.AlertType.WARNING, "Try Again", ButtonType.OK).show();
                             }
                         } catch (Exception exception) {
-                            exception.printStackTrace();
+                            new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
                         }
                     }
                 });
@@ -92,7 +105,7 @@ public class MaintainFormController {
                                 new Alert(Alert.AlertType.WARNING, "Try Again", ButtonType.OK).show();
                             }
                         } catch (Exception exception) {
-                            exception.printStackTrace();
+                            new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
                         }
                     }
                 });
@@ -107,21 +120,26 @@ public class MaintainFormController {
                 }
             tblMaintain.setItems(obList);
             } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
         }
 
-    public void btnPrintOnAction(ActionEvent actionEvent) throws JRException, SQLException {
-        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/Maintain_details.jrxml");
-        JasperDesign load = JRXmlLoader.load(resourceAsStream);
-        JasperReport compileReport = JasperCompileManager.compileReport(load);
-        JasperPrint jasperPrint =
-                JasperFillManager.fillReport(
-                        compileReport,
-                        null,
-                        DbConnection.getInstance().getConnection()
-                );
-        JasperViewer.viewReport(jasperPrint, false);
+    @FXML
+    private void btnPrintOnAction(){
+        try {
+            InputStream resourceAsStream = getClass().getResourceAsStream("/reports/Maintain_details.jrxml");
+            JasperDesign load = JRXmlLoader.load(resourceAsStream);
+            JasperReport compileReport = JasperCompileManager.compileReport(load);
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(
+                            compileReport,
+                            null,
+                            DbConnection.getInstance().getConnection()
+                    );
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 }
 

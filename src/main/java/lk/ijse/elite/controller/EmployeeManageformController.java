@@ -3,7 +3,7 @@ package lk.ijse.elite.controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lk.ijse.elite.dto.AdminDto;
@@ -16,20 +16,33 @@ import java.util.regex.Pattern;
 
 public class EmployeeManageformController {
 
-    public TextField txtEmpid;
-    public TextField txtName;
-    public TextField txtAddress;
-    public TextField txtMobile;
-    public JFXComboBox cmbAdminid;
-    public JFXComboBox cmbEmployeeposition;
-    public TextField txtAmount;
+    @FXML
+    private TextField txtEmpid;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtAddress;
+
+    @FXML
+    private TextField txtMobile;
+
+    @FXML
+    private JFXComboBox cmbAdminid;
+
+    @FXML
+    private JFXComboBox cmbEmployeeposition;
+
+    @FXML
+    private TextField txtAmount;
 
     public void initialize(){
         try {
             autoGenerateId();
             loadAllAdmin();
         } catch (SQLException  | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
         cmbEmployeeposition.getItems().addAll("Director","Project Manager","Chief Operation","Chief Executive","lawyer","General Manager","Sales Manager","Charted Accountant","Admin Manager","Customer Service");
@@ -68,7 +81,8 @@ public class EmployeeManageformController {
         }
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSaveOnAction() {
         String eid = txtEmpid.getText();
         String adid = String.valueOf(cmbAdminid.getValue());
         String name = txtName.getText();
@@ -92,9 +106,7 @@ public class EmployeeManageformController {
                 initialize();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -106,7 +118,8 @@ public class EmployeeManageformController {
         txtMobile.setText("");
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnUpdateOnAction() {
         String eid = txtEmpid.getText();
         String adid = String.valueOf(cmbAdminid.getValue());
         String name = txtName.getText();
@@ -129,14 +142,13 @@ public class EmployeeManageformController {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Update Succesfull!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnDeleteOnAction() {
         String eid = txtEmpid.getText();
         var model = new EmployeeModel();
 
@@ -153,14 +165,13 @@ public class EmployeeManageformController {
                 new Alert(Alert.AlertType.WARNING, "Employee Not Found!!!").show();
                 clearFields();
             }
-        } catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnSearchOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSearchOnAction() {
         String eid = txtEmpid.getText();
         
         var model = new EmployeeModel();
@@ -172,9 +183,7 @@ public class EmployeeManageformController {
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Employee not found!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -198,7 +207,7 @@ public class EmployeeManageformController {
             }
             cmbAdminid.setItems(obList);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

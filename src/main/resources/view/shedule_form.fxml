@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="shedule" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.ShedulemanageFormController">
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.elite.controller.ShedulemanageFormController">
    <children>
       <Pane fx:id="bodyPane" layoutY="-1.0" prefHeight="605.0" prefWidth="970.0" stylesheets="@../style/style.css">
          <children>

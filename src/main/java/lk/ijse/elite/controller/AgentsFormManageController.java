@@ -1,6 +1,6 @@
 package lk.ijse.elite.controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lk.ijse.elite.dto.AgentDto;
@@ -9,11 +9,21 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class AgentsFormManageController {
-    public TextField txtAgentid;
-    public TextField txtName;
-    public TextField txtAddress;
-    public TextField txtMobile;
-    public TextField txtEmail;
+
+    @FXML
+    private TextField txtAgentid;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtAddress;
+
+    @FXML
+    private TextField txtMobile;
+
+    @FXML
+    private TextField txtEmail;
 
     public void initialize() {
         try {
@@ -23,7 +33,8 @@ public class AgentsFormManageController {
         }
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSaveOnAction() {
         String agentid = txtAgentid.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
@@ -45,9 +56,7 @@ public class AgentsFormManageController {
                 clearFields();
                 initialize();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -59,7 +68,8 @@ public class AgentsFormManageController {
         txtEmail.setText("");
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnUpdateOnAction() {
         String agentid = txtAgentid.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
@@ -80,14 +90,13 @@ public class AgentsFormManageController {
                 new Alert(Alert.AlertType.CONFIRMATION, "Agent Update Succesfull!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnDeleteOnAction() {
         String agentid = txtAgentid.getText();
         var model = new AgentModel();
 
@@ -96,9 +105,7 @@ public class AgentsFormManageController {
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Agent Deleted Succesfull").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

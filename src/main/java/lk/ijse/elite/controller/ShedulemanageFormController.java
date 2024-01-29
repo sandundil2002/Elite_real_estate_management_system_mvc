@@ -22,13 +22,20 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-
 public class ShedulemanageFormController {
-    public AnchorPane shedule;
-    public Pane bodyPane;
-    public TableColumn colStatus;
-    public TableColumn colComplete;
-    public TableColumn conCansel;
+
+    @FXML
+    private Pane bodyPane;
+
+    @FXML
+    private TableColumn colStatus;
+
+    @FXML
+    private TableColumn colComplete;
+
+    @FXML
+    private TableColumn conCansel;
+
     @FXML
     private TableColumn<?, ?> colAdminId;
 
@@ -49,7 +56,7 @@ public class ShedulemanageFormController {
         try {
             loadAllShedules();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -63,7 +70,8 @@ public class ShedulemanageFormController {
         conCansel.setCellValueFactory(new PropertyValueFactory<>("btnCansel"));
     }
 
-    public void btnShedulemanageOnAction(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void btnShedulemanageOnAction() {
         try {
             URL resource = SheduleFormController.class.getResource("/view/sheduleManageForm.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -73,7 +81,7 @@ public class ShedulemanageFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -103,9 +111,7 @@ public class ShedulemanageFormController {
                                 new Alert(Alert.AlertType.CONFIRMATION, "Schedule Update Succesfull!!!").show();
                                 initialize();
                             }
-                        } catch (SQLException ex) {
-                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-                        } catch (ClassNotFoundException ex) {
+                        } catch (SQLException | ClassNotFoundException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
@@ -123,9 +129,7 @@ public class ShedulemanageFormController {
                                 new Alert(Alert.AlertType.CONFIRMATION, "Schedule Update Succesfull!!!").show();
                                 initialize();
                             }
-                        } catch (SQLException ex) {
-                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-                        } catch (ClassNotFoundException ex) {
+                        } catch (SQLException | ClassNotFoundException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
@@ -143,24 +147,24 @@ public class ShedulemanageFormController {
                 ));
             }
             tblShedule.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnRefeshOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnRefeshOnAction() {
             initialize();
     }
 
-    public void btnCustomerOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnCustomerOnAction() {
         bodyPane.getChildren().clear();
         try {
             AnchorPane anchorPane = FXMLLoader.load(this.getClass().getResource("/view/customerForm.fxml"));
             bodyPane.getChildren().add(anchorPane);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 }

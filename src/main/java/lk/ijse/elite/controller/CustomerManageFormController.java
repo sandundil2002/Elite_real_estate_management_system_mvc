@@ -3,7 +3,7 @@ package lk.ijse.elite.controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lk.ijse.elite.dto.CustomerDto;
@@ -15,12 +15,24 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class CustomerManageFormController {
-    public TextField txtCustomerid;
-    public TextField txtAddress;
-    public TextField txtMobile;
-    public TextField txtEmail;
-    public TextField txtName;
-    public JFXComboBox cmbSheduleid;
+
+    @FXML
+    private TextField txtCustomerid;
+
+    @FXML
+    private TextField txtAddress;
+
+    @FXML
+    private TextField txtMobile;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private JFXComboBox cmbSheduleid;
 
     public void initialize(){
         try {
@@ -31,7 +43,8 @@ public class CustomerManageFormController {
         }
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSaveOnAction() {
         String cid = txtCustomerid.getText();
         String sheduleid = String.valueOf(cmbSheduleid.getValue());
         String name = txtName.getText();
@@ -54,9 +67,7 @@ public class CustomerManageFormController {
                 clearFields();
                 autoGenerateId();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -70,8 +81,8 @@ public class CustomerManageFormController {
         txtEmail.setText("");
     }
 
-
-    public void btnSearchOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnSearchOnAction() {
         String cid = txtCustomerid.getText();
         var model = new CustomerModel();
         try {
@@ -83,9 +94,7 @@ public class CustomerManageFormController {
                 new Alert(Alert.AlertType.INFORMATION, "Customer Not Found!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -99,7 +108,8 @@ public class CustomerManageFormController {
         txtEmail.setText(dto.getEmail());
     }
 
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnDeleteOnAction() {
         String cid = txtCustomerid.getText();
         var model = new CustomerModel();
 
@@ -117,14 +127,13 @@ public class CustomerManageFormController {
                 new Alert(Alert.AlertType.ERROR, "Customer Not Found!!!").show();
                 clearFields();
             }
-        } catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnUpdateOnAction() {
         String cid = txtCustomerid.getText();
         String sheduleid = String.valueOf(cmbSheduleid.getValue());
         String name = txtName.getText();
@@ -146,9 +155,7 @@ public class CustomerManageFormController {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Update Succesfull!!!").show();
                 clearFields();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -197,9 +204,7 @@ public class CustomerManageFormController {
                 obList.add(sheduleDto.getScheduleId());
             }
             cmbSheduleid.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

@@ -2,7 +2,6 @@ package lk.ijse.elite.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.elite.db.DbConnection;
 import lk.ijse.elite.dto.PropertyDto;
@@ -20,6 +18,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -28,22 +27,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class PropertyFormController {
-    public TableView<PropertyTm> tblproperty;
 
-    public AnchorPane property;
-    public TableColumn colPropertyid;
-    public TableColumn colAgentid;
-    public TableColumn colType;
-    public TableColumn colAddress;
-    public TableColumn colPrice;
-    public TableColumn colStatus;
-    public TableColumn colRemove;
-    public TableColumn colPerches;
+    @FXML
+    private TableView<PropertyTm> tblproperty;
+
+    @FXML
+    private TableColumn colPropertyid;
+
+    @FXML
+    private TableColumn colAgentid;
+
+    @FXML
+    private TableColumn colType;
+
+    @FXML
+    private TableColumn colAddress;
+
+    @FXML
+    private TableColumn colPrice;
+
+    @FXML
+    private TableColumn colStatus;
+
+    @FXML
+    private TableColumn colRemove;
+
+    @FXML
+    private TableColumn colPerches;
 
     public void initialize() {
         setCellValueFactory();
         loadAllProperty();
     }
+
     private void setCellValueFactory() {
         colPropertyid.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
         colAgentid.setCellValueFactory(new PropertyValueFactory<>("agentId"));
@@ -55,7 +71,8 @@ public class PropertyFormController {
         colRemove.setCellValueFactory(new PropertyValueFactory<>("btnRemove"));
     }
 
-    public void btnPropertymanageOnAction(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void btnPropertymanageOnAction(){
         try {
             URL resource = PropertymanageFormcCntroller.class.getResource("/view/propertymanage_form.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -65,11 +82,12 @@ public class PropertyFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+
     @FXML
-    public void btnBuypropertyOnAction(ActionEvent event) {
+    private void btnBuypropertyOnAction() {
         try {
             URL resource = PlaceorderFromController.class.getResource("/view/placeorder_from.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -79,9 +97,10 @@ public class PropertyFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+
     private void loadAllProperty() {
         var model = new PropertyModel();
 
@@ -108,9 +127,7 @@ public class PropertyFormController {
                             } else {
                                 new Alert(Alert.AlertType.WARNING, "Try Again !", ButtonType.OK).show();
                             }
-                        } catch (SQLException ex) {
-                            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-                        } catch (ClassNotFoundException ex) {
+                        } catch (SQLException | ClassNotFoundException ex) {
                             new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                         }
                     }
@@ -127,31 +144,36 @@ public class PropertyFormController {
                 ));
             }
             tblproperty.setItems(obList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void btnPrintOnAction() throws JRException, SQLException {
-        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/property.jrxml");
-        JasperDesign load = JRXmlLoader.load(resourceAsStream);
-        JasperReport compileReport = JasperCompileManager.compileReport(load);
-        JasperPrint jasperPrint =
-                JasperFillManager.fillReport(
-                        compileReport,
-                        null,
-                        DbConnection.getInstance().getConnection()
-                );
-        JasperViewer.viewReport(jasperPrint, false);
+    @FXML
+    private void btnPrintOnAction(){
+        try {
+            InputStream resourceAsStream = getClass().getResourceAsStream("/reports/property.jrxml");
+            JasperDesign load = JRXmlLoader.load(resourceAsStream);
+            JasperReport compileReport = JasperCompileManager.compileReport(load);
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(
+                            compileReport,
+                            null,
+                            DbConnection.getInstance().getConnection()
+                    );
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
-    public void btnRefeshOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnRefeshOnAction() {
         initialize();
     }
 
-    public void btnRentpropertyOnAction(ActionEvent actionEvent) {
+    @FXML
+    private void btnRentpropertyOnAction() {
         try {
             URL resource = RentPropertyFormController.class.getResource("/view/rentProperty_form.fxml");
             Parent parent = FXMLLoader.load(resource);
@@ -161,7 +183,7 @@ public class PropertyFormController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 }
